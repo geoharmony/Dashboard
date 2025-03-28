@@ -1,0 +1,309 @@
+[
+  {
+    "date": "2026-06-05",
+    "narrative_id": "Y1",
+    "location": {
+      "name": "Leer, Unity State",
+      "lat": 7.55,
+      "lon": 30.45,
+      "admin1": "Unity",
+      "admin2": "Leer"
+    },
+    "event": "MODIS shows soil degradation and drying ponds."
+  },
+  {
+    "date": "2026-06-12",
+    "narrative_id": "Y1",
+    "location": {
+      "name": "Leer, Unity State",
+      "lat": 7.55,
+      "lon": 30.45,
+      "admin1": "Unity",
+      "admin2": "Leer"
+    },
+    "event": "Patrol notes reduced cattle watering stations."
+  },
+  {
+    "date": "2026-06-14",
+    "narrative_id": "Y9",
+    "location": {
+      "name": "Magwi, Eastern Equatoria",
+      "lat": 4.13,
+      "lon": 32.3,
+      "admin1": "Eastern Equatoria",
+      "admin2": "Magwi"
+    },
+    "event": "Farmers report failed planting due to dry soils and late rains."
+  },
+  {
+    "date": "2026-06-15",
+    "narrative_id": "Y2",
+    "location": {
+      "name": "Torit, Eastern Equatoria",
+      "lat": 4.41,
+      "lon": 32.57,
+      "admin1": "Eastern Equatoria",
+      "admin2": "Torit"
+    },
+    "event": "KoBo forms and satellite data show early signs of armyworm in maize crops."
+  },
+  {
+    "date": "2026-06-25",
+    "narrative_id": "Y1",
+    "location": {
+      "name": "Leer, Unity State",
+      "lat": 7.55,
+      "lon": 30.45,
+      "admin1": "Unity",
+      "admin2": "Leer"
+    },
+    "event": "Civil Affairs survey indicates competition over remaining water points."
+  },
+  {
+    "date": "2026-06-25",
+    "narrative_id": "Y3",
+    "location": {
+      "name": "Akobo, Jonglei State",
+      "lat": 7.78,
+      "lon": 33.0,
+      "admin1": "Jonglei",
+      "admin2": "Akobo"
+    },
+    "event": "CHIRPS anomaly shows 200% rainfall increase in 2 weeks."
+  },
+  {
+    "date": "2026-06-28",
+    "narrative_id": "Y2",
+    "location": {
+      "name": "Torit, Eastern Equatoria",
+      "lat": 4.41,
+      "lon": 32.57,
+      "admin1": "Eastern Equatoria",
+      "admin2": "Torit"
+    },
+    "event": "FAO crop bulletin confirms regional alert."
+  },
+  {
+    "date": "2026-06-30",
+    "narrative_id": "Y9",
+    "location": {
+      "name": "Magwi, Eastern Equatoria",
+      "lat": 4.13,
+      "lon": 32.3,
+      "admin1": "Eastern Equatoria",
+      "admin2": "Magwi"
+    },
+    "event": "Armed youth block rival community from farmland."
+  },
+  {
+    "date": "2026-07-02",
+    "narrative_id": "Y3",
+    "location": {
+      "name": "Akobo, Jonglei State",
+      "lat": 7.78,
+      "lon": 33.0,
+      "admin1": "Jonglei",
+      "admin2": "Akobo"
+    },
+    "event": "Flash floods displace 4,000 residents."
+  },
+  {
+    "date": "2026-07-03",
+    "narrative_id": "Y21",
+    "location": {
+      "name": "Yirol West, Lakes State",
+      "lat": 7.822,
+      "lon": 31.163,
+      "admin1": "Lakes",
+      "admin2": "Yirol West"
+    },
+    "event": "UNOSAT detects high floodwater extent in Yirol West."
+  },
+  {
+    "date": "2026-07-05",
+    "narrative_id": "Y10",
+    "location": {
+      "name": "Kodok, Upper Nile",
+      "lat": 9.62,
+      "lon": 31.98,
+      "admin1": "Upper Nile",
+      "admin2": "Kodok"
+    },
+    "event": "SAR and CHIRPS confirm heavy flooding near Sobat River."
+  },
+  {
+    "date": "2026-07-05",
+    "narrative_id": "Y21",
+    "location": {
+      "name": "Yirol West, Lakes State",
+      "lat": 7.822,
+      "lon": 31.163,
+      "admin1": "Lakes",
+      "admin2": "Yirol West"
+    },
+    "event": "IOM reports over 2,000 displaced near cattle grazing zones."
+  },
+  {
+    "date": "2026-07-10",
+    "narrative_id": "Y1",
+    "location": {
+      "name": "Leer, Unity State",
+      "lat": 7.55,
+      "lon": 30.45,
+      "admin1": "Unity",
+      "admin2": "Leer"
+    },
+    "event": "Tensions between pastoralist clans escalate; 3 injured.",
+    "context": "Persistent drought followed by water disputes and displacement.",
+    "narrative_summary": "UNOSAT data shows that, IOM displacement tracking indicates that, NOAA and FAO drought monitoring confirms that extended drought in Leer dried key water sources. Resource disputes between herding groups led to displacement and violence.",
+    "sources_referenced": ["FAO ASIS", "UNOSAT", "IOM", "NOAA", "ACLED"]
+  },
+  {
+    "date": "2026-07-10",
+    "narrative_id": "Y9",
+    "location": {
+      "name": "Magwi, Eastern Equatoria",
+      "lat": 4.13,
+      "lon": 32.3,
+      "admin1": "Eastern Equatoria",
+      "admin2": "Magwi"
+    },
+    "event": "Patrol logs abandoned farming areas."
+  },
+  {
+    "date": "2026-07-10",
+    "narrative_id": "Y21",
+    "location": {
+      "name": "Yirol West, Lakes State",
+      "lat": 7.822,
+      "lon": 31.163,
+      "admin1": "Lakes",
+      "admin2": "Yirol West"
+    },
+    "event": "UNMISS patrols confirm tension over shared water points."
+  },
+  {
+    "date": "2026-07-12",
+    "narrative_id": "Y2",
+    "location": {
+      "name": "Torit, Eastern Equatoria",
+      "lat": 4.41,
+      "lon": 32.57,
+      "admin1": "Eastern Equatoria",
+      "admin2": "Torit"
+    },
+    "event": "Local markets report price hikes."
+  },
+  {
+    "date": "2026-07-15",
+    "narrative_id": "Y10",
+    "location": {
+      "name": "Kodok, Upper Nile",
+      "lat": 9.62,
+      "lon": 31.98,
+      "admin1": "Upper Nile",
+      "admin2": "Kodok"
+    },
+    "event": "3 wells reported flooded/contaminated in Kodok; patrol logs images in KoBo."
+  },
+  {
+    "date": "2026-07-18",
+    "narrative_id": "Y3",
+    "location": {
+      "name": "Akobo, Jonglei State",
+      "lat": 7.78,
+      "lon": 33.0,
+      "admin1": "Jonglei",
+      "admin2": "Akobo"
+    },
+    "event": "KoBo reports note open defecation in makeshift camps."
+  },
+  {
+    "date": "2026-07-22",
+    "narrative_id": "Y9",
+    "location": {
+      "name": "Magwi, Eastern Equatoria",
+      "lat": 4.13,
+      "lon": 32.3,
+      "admin1": "Eastern Equatoria",
+      "admin2": "Magwi"
+    },
+    "event": "Violence erupts in Omeo village over farmland access; 2 injured.",
+    "context": "Delayed rains and blocked land access → youth conflict.",
+    "narrative_summary": "UNOSAT data shows that, ACLED records reflect that delayed rains and youth land blockades triggered conflict in Magwi. Patrols confirmed abandonment of farming compounds.",
+    "sources_referenced": ["UNOSAT", "ACLED", "KoBo", "NDVI", "ASIS"]
+  },
+  {
+    "date": "2026-07-25",
+    "narrative_id": "Y10",
+    "location": {
+      "name": "Kodok, Upper Nile",
+      "lat": 9.62,
+      "lon": 31.98,
+      "admin1": "Upper Nile",
+      "admin2": "Kodok"
+    },
+    "event": "IDPs settle near Kodok's boreholes."
+  },
+  {
+    "date": "2026-07-25",
+    "narrative_id": "Y21",
+    "location": {
+      "name": "Yirol West, Lakes State",
+      "lat": 7.822,
+      "lon": 31.163,
+      "admin1": "Lakes",
+      "admin2": "Yirol West"
+    },
+    "event": "Clashes reported between herders and displaced families.",
+    "context": "Post-flood displacement triggers land pressure near grazing corridors",
+    "narrative_summary": "UNOSAT satellite data shows significant flooding in Yirol West displacing over 2,000 people in early July. IOM displacement alerts confirm that makeshift settlements were erected near traditional cattle corridors. According to ACLED and CAD patrol reports, competition over water access led to clashes between displaced households and herders.",
+    "sources_referenced": ["UNOSAT", "IOM", "ACLED", "KoBo"]
+  },
+  {
+    "date": "2026-08-01",
+    "narrative_id": "Y2",
+    "location": {
+      "name": "Torit, Eastern Equatoria",
+      "lat": 4.41,
+      "lon": 32.57,
+      "admin1": "Eastern Equatoria",
+      "admin2": "Torit"
+    },
+    "event": "Farmers clash with hired guards from a private farm accused of pesticide hoarding.",
+    "context": "Crop pest outbreak worsens dry conditions, fueling market instability.",
+    "narrative_summary": "FAO reports that an armyworm infestation, coupled with drought, devastated maize crops near Torit. Tensions rose after accusations of pesticide hoarding by commercial farms.",
+    "sources_referenced": ["FAO", "ASIS", "KoBo", "ACLED", "EC Anomaly (ASAP Pest Alerts)"]
+  },
+  {
+    "date": "2026-08-10",
+    "narrative_id": "Y3",
+    "location": {
+      "name": "Akobo, Jonglei State",
+      "lat": 7.78,
+      "lon": 33.0,
+      "admin1": "Jonglei",
+      "admin2": "Akobo"
+    },
+    "event": "Cholera outbreak confirmed by health patrol.",
+    "context": "Early flooding followed by shelter shortages and hygiene crisis.",
+    "narrative_summary": "UNOSAT data shows that heavy rainfall triggered flooding and displacement in Akobo. Poor sanitation in makeshift shelters resulted in a localized cholera outbreak.",
+    "sources_referenced": ["UNOSAT", "CHIRPS", "KoBo"]
+  },
+  {
+    "date": "2026-08-15",
+    "narrative_id": "Y10",
+    "location": {
+      "name": "Kodok, Upper Nile",
+      "lat": 9.62,
+      "lon": 31.98,
+      "admin1": "Upper Nile",
+      "admin2": "Kodok"
+    },
+    "event": "Riot breaks out over water access.",
+    "context": "Flooding displaced thousands; borehole conflict follows.",
+    "narrative_summary": "UNOSAT data shows flooding, IOM displacement tracking data indicates and ACLED records reflect that flooding near Kodok displaced thousands, leading to conflict over water access in host areas.",
+    "sources_referenced": ["UNOSAT", "IOM", "ACLED", "CHIRPS"]
+  }
+]
+
