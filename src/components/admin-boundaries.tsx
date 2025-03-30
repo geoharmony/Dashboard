@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react"
 import L from "leaflet"
-import ADMIN1 from "@/data/GAUL_South_Sudan_Admin_Layer1.json"
-import ADMIN2 from "@/data/GAUL_South_Sudan_Admin_Layer2.json"
+import ADMIN1 from "@/data/adm1.json"
+import ADMIN2 from "@/data/adm2.json"
 
 interface AdminBoundariesProps {
   admin1Enabled: boolean
