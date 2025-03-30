@@ -11,6 +11,7 @@ import { DateSlider } from "@/components/slider"
 import { AdminBoundaries } from "@/components/admin-boundaries"
 import { UNMISSLayer } from "@/components/unmiss-layer"
 import { IDPLayer } from "./idp-layer"
+import { FloodLayer } from "./flood-layer"
 
 interface MapViewProps {
   events: Event[]
@@ -175,6 +176,11 @@ export function MapView({ events }: MapViewProps) {
 
       <UNMISSLayer />
       <IDPLayer />
+      <FloodLayer 
+        isVisible={layers.filter(layer => layer.id === "flood").some(layer => layer.visible)}
+      />
+      
+
 
       {/* <IDPLayer
         mapInstance={mapRef.current}

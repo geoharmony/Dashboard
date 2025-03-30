@@ -112,7 +112,7 @@ export function MapProvider({ children }: { children: ReactNode }) {
 
   // Handle checking if we should show topo layer
   useEffect(() => {
-    const topoLayerIds: string[] = ["idp", "something"]
+    const topoLayerIds: string[] = ["idp", "flood"]
     if (layers.filter(layer => topoLayerIds.includes(layer.id) && layer.visible).length > 0) {
       setShowingTopo(true)
     } else {

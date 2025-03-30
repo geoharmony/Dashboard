@@ -6,6 +6,7 @@ import ADMIN2 from "@/data/GAUL_South_Sudan_Admin_Layer2.json"
 import EVENTS from "@/data/unmiss-events-chronological.json"
 import UNMISS from "@/data/UNMISS South Sudan Locations.json"
 import IDP_DATA from "@/data/cccm_combined.json"
+import FloodPolygon from "@/data/flood060509.json"
 import ADM2_CRISIS from "@/data/enhanced_adm2.json"
 
 import { type Alert } from "@/types/alerts"
@@ -116,6 +117,17 @@ export async function fetchLayerData(): Promise<Layer[]> {
       opacity: 0.7,
       minZoom: 0,
       maxZoom: 13,
+    },
+    {
+      id: "flood",
+      name: "Flood",
+      type: "geojson",
+      category: "Environmental",
+      group: "Environmental",
+      tabAssociations: [],
+      visible: true,
+      data: FloodPolygon,
+      color: "#00FF00",
     },
     // {
     //   id: "current-precipitation",
