@@ -3,13 +3,13 @@ import L from "leaflet"
 import "leaflet/dist/leaflet.css"
 import { useMapContext } from "../context/map-context"
 import { HomeButton } from "./home-button"
-// import { CoordinatesDisplay } from "./coordinates-display"
-import { AdminBoundaries } from "./admin-boundaries"
 import { EventMarkers } from "./event-markers"
 import { TimelinePanel } from "./timeline-panel"
 import { filterEventsByDateRange } from "../lib/events-utils"
 import type { Event } from "../types/events"
 import { DateSlider } from "@/components/slider"
+import { AdminBoundaries } from "./admin-boundaries"
+import { Layers } from "lucide-react"
 
 interface MapViewProps {
   events: Event[]
@@ -17,7 +17,7 @@ interface MapViewProps {
 
 export function MapView({ events }: MapViewProps) {
   const mapRef = useRef<L.Map | null>(null)
-  const { setMapInstance, selectedDate, setSelectedDate, dateRange } = useMapContext()
+  const { setMapInstance, selectedDate, setSelectedDate, dateRange, layers } = useMapContext()
   const mapContainerRef = useRef<HTMLDivElement>(null)
   const isInitializedRef = useRef(false)
   const [filteredEvents, setFilteredEvents] = useState<Event[]>([])
@@ -158,10 +158,35 @@ export function MapView({ events }: MapViewProps) {
         events={filteredEvents}
         mapInstance={mapRef.current}
         onMarkerClick={handleMarkerClick}
-        highlightedTimelineId={highlightedTimelineId}
       />
+      <AdminBoundaries
+        mapInstance={mapRef.current}
+        admin1Enabled={layers.filter(layer => layer.id === "admin1").some(layer => layer.visible)}
+        admin2Enabled={layers.filter(layer => layer.id === "admin2").some(layer => layer.visible)}
+      />
+      {/* <UNMISSLayer
+        mapInstance={mapRef.current}
+        data={UNMISS}
+        enabled={true}
+      />
+      <IDPLayer
+        mapInstance={mapRef.current}
+        data={IDP_DATA}
+        enabled={true}
+      />
+      <CrisisLayer
+        data={ADM2_CRISIS}
+        enabled={true}
+        mapInstance={mapRef.current}
+      />
+      <FloodwatchLayer
+        mapInstance={mapRef.current}
+        data={floodwatchTileUrls}
+        enabled={true}
+      /> */}
+
+
       <DateSlider selectedDate={selectedDate} setSelectedDate={setSelectedDate} dateRange={dateRange} />
     </div>
   )
 }
-

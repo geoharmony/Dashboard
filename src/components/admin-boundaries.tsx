@@ -1,18 +1,15 @@
-"use client"
-
 import { useEffect, useRef } from "react"
 import L from "leaflet"
+import ADMIN1 from "@/data/GAUL_South_Sudan_Admin_Layer1.json"
+import ADMIN2 from "@/data/GAUL_South_Sudan_Admin_Layer2.json"
 
 interface AdminBoundariesProps {
-  admin1GeoJSON: GeoJSON.FeatureCollection | null
-  admin2GeoJSON: GeoJSON.FeatureCollection | null
+  admin1Enabled: boolean
+  admin2Enabled: boolean
   mapInstance: L.Map | null
 }
 
-// Declare GeoJSON
-declare var GeoJSON: any
-
-export function AdminBoundaries({ admin1GeoJSON, admin2GeoJSON, mapInstance }: AdminBoundariesProps) {
+export function AdminBoundaries({ mapInstance, admin1Enabled, admin2Enabled }: AdminBoundariesProps) {
   const admin1LayerRef = useRef<L.GeoJSON | null>(null)
   const admin2LayerRef = useRef<L.GeoJSON | null>(null)
 
@@ -33,15 +30,17 @@ export function AdminBoundaries({ admin1GeoJSON, admin2GeoJSON, mapInstance }: A
   }, [mapInstance])
 
   useEffect(() => {
-    if (!mapInstance || !admin1GeoJSON) return
+    if (!mapInstance) return
 
     // Remove existing layer if it exists
     if (admin1LayerRef.current) {
       mapInstance.removeLayer(admin1LayerRef.current)
     }
 
+    if (!admin1Enabled) return
+
     // Create Admin1 layer
-    admin1LayerRef.current = L.geoJSON(admin1GeoJSON, {
+    admin1LayerRef.current = L.geoJSON(ADMIN1, {
       style: () => ({
         color: "#3949AB", // Indigo
         weight: 2,
@@ -61,18 +60,20 @@ export function AdminBoundaries({ admin1GeoJSON, admin2GeoJSON, mapInstance }: A
         }
       },
     }).addTo(mapInstance)
-  }, [mapInstance, admin1GeoJSON])
+  }, [mapInstance, admin1Enabled])
 
   useEffect(() => {
-    if (!mapInstance || !admin2GeoJSON) return
+    if (!mapInstance) return
 
     // Remove existing layer if it exists
     if (admin2LayerRef.current) {
       mapInstance.removeLayer(admin2LayerRef.current)
     }
 
+    if (!admin2Enabled) return
+
     // Create Admin2 layer
-    admin2LayerRef.current = L.geoJSON(admin2GeoJSON, {
+    admin2LayerRef.current = L.geoJSON(ADMIN2, {
       style: () => ({
         color: "#7986CB", // Lighter indigo
         weight: 1,
@@ -93,7 +94,7 @@ export function AdminBoundaries({ admin1GeoJSON, admin2GeoJSON, mapInstance }: A
         }
       },
     }).addTo(mapInstance)
-  }, [mapInstance, admin2GeoJSON])
+  }, [mapInstance, admin2Enabled])
 
   return null // This is a non-visual component
 }
