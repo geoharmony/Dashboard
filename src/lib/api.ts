@@ -48,7 +48,7 @@ export async function fetchLayerData(): Promise<Layer[]> {
   return [
     {
       id: "admin1",
-      name: "Admin 1",
+      name: "States",
       type: "geojson",
       category: "Geographic",
       group: "Geographic",
@@ -60,7 +60,7 @@ export async function fetchLayerData(): Promise<Layer[]> {
 
     {
       id: "admin2",
-      name: "Admin 2",
+      name: "Payam",
       type: "geojson",
       category: "Geographic",
       group: "Geographic",
