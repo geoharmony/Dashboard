@@ -135,7 +135,7 @@ export function MapProvider({ children }: { children: ReactNode }) {
       // Filter data based on date if applicable
       if (layer.type === "geojson" && layer.data) {
         // Filter GeoJSON features
-        console.group(layer.id)
+        console.groupCollapsed(layer.id)
         console.log('layer', layer.id, layer.data.features);
         if (layer.data.features) {
           layerCopy.data = {

@@ -1,15 +1,16 @@
 import { useEffect, useRef, useState, useCallback } from "react"
 import L from "leaflet"
 import "leaflet/dist/leaflet.css"
-import { useMapContext } from "../context/map-context"
-import { HomeButton } from "./home-button"
-import { EventMarkers } from "./event-markers"
-import { TimelinePanel } from "./timeline-panel"
-import { filterEventsByDateRange } from "../lib/events-utils"
-import type { Event } from "../types/events"
+import { useMapContext } from "@/context/map-context"
+import { HomeButton } from "@/components/home-button"
+import { EventMarkers } from "@/components/event-markers"
+import { TimelinePanel } from "@/components/timeline-panel"
+import { filterEventsByDateRange } from "@/lib/events-utils"
+import type { Event } from "@/types/events"
 import { DateSlider } from "@/components/slider"
-import { AdminBoundaries } from "./admin-boundaries"
-import { Layers } from "lucide-react"
+import { AdminBoundaries } from "@/components/admin-boundaries"
+import { UNMISSLayer } from "@/components/unmiss-layer"
+import { IDPLayer } from "./idp-layer"
 
 interface MapViewProps {
   events: Event[]
@@ -164,12 +165,11 @@ export function MapView({ events }: MapViewProps) {
         admin1Enabled={layers.filter(layer => layer.id === "admin1").some(layer => layer.visible)}
         admin2Enabled={layers.filter(layer => layer.id === "admin2").some(layer => layer.visible)}
       />
-      {/* <UNMISSLayer
-        mapInstance={mapRef.current}
-        data={UNMISS}
-        enabled={true}
-      />
-      <IDPLayer
+
+      <UNMISSLayer />
+      <IDPLayer />
+
+      {/* <IDPLayer
         mapInstance={mapRef.current}
         data={IDP_DATA}
         enabled={true}
