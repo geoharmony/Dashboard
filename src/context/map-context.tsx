@@ -47,8 +47,7 @@ interface MapContextType {
   setSearchQuery?: (query: string) => void
   isSearchVisible?: boolean
   setIsSearchVisible?: (visible: boolean) => void
-  showingTopo?: boolean
-  setShowingTopo?: (showing: boolean) => void
+  showingTopo: boolean
   baseLayer?: L.TileLayer
   setBaseLayer?: (layer: L.TileLayer) => void
   topoLayer?: L.TileLayer
@@ -109,6 +108,17 @@ export function MapProvider({ children }: { children: ReactNode }) {
   const [showingTopo, setShowingTopo] = useState<boolean>(false)
   const [baseLayer, setBaseLayer] = useState<L.TileLayer | null>(null)
   const [topoLayer, setTopoLayer] = useState<L.TileLayer | null>(null)
+
+
+  // Handle checking if we should show topo layer
+  useEffect(() => {
+    const topoLayerIds: string[] = ["idp", "something"]
+    if (layers.filter(layer => topoLayerIds.includes(layer.id) && layer.visible).length > 0) {
+      setShowingTopo(true)
+    } else {
+      setShowingTopo(false)
+    }
+  }, [layers])
 
   // Fetch initial layer data
   useEffect(() => {
@@ -754,7 +764,6 @@ export function MapProvider({ children }: { children: ReactNode }) {
         isSearchVisible,
         setIsSearchVisible,
         showingTopo,
-        setShowingTopo,
         baseLayer,
         setBaseLayer,
         topoLayer,
