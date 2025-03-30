@@ -1,0 +1,24 @@
+{
+"type": "FeatureCollection",
+"name": "UNMISS South Sudan Locations",
+"features": [
+{ "type": "Feature", "properties": { "name": "Sector North UNMISS Malakal" }, "geometry": { "type": "Point", "coordinates": [ 31.6593241, 9.5821687 ] } },
+{ "type": "Feature", "properties": { "name": "Sector Unity UNMISS Bentiu" }, "geometry": { "type": "Point", "coordinates": [ 29.8005076, 9.231529 ] } },
+{ "type": "Feature", "properties": { "name": "Sector East UNMISS Bor" }, "geometry": { "type": "Point", "coordinates": [ 31.602661, 6.1945995 ] } },
+{ "type": "Feature", "properties": { "name": "Sector West UNMISS Wau" }, "geometry": { "type": "Point", "coordinates": [ 27.9658201, 7.7147245 ] } },
+{ "type": "Feature", "properties": { "name": "UNMISS / Sector Juba / Sector South" }, "geometry": { "type": "Point", "coordinates": [ 31.5839063, 4.8796566 ] } },
+{ "type": "Feature", "properties": { "name": "UNMISS Pibor" }, "geometry": { "type": "Point", "coordinates": [ 33.1241009, 6.796898 ] } },
+{ "type": "Feature", "properties": { "name": "UNMISS Torit" }, "geometry": { "type": "Point", "coordinates": [ 32.5924811, 4.4031961 ] } },
+{ "type": "Feature", "properties": { "name": "UNMISS Aweil" }, "geometry": { "type": "Point", "coordinates": [ 27.3865644, 8.7585236 ] } },
+{ "type": "Feature", "properties": { "name": "UNMISS Kuajok" }, "geometry": { "type": "Point", "coordinates": [ 27.9341907, 8.2664981 ] } },
+{ "type": "Feature", "properties": { "name": "UNMISS Yambio" }, "geometry": { "type": "Point", "coordinates": [ 28.401738, 4.561605 ] } },
+{ "type": "Feature", "properties": { "name": "UNMISS Yei" }, "geometry": { "type": "Point", "coordinates": [ 30.660085, 4.0749794 ] } },
+{ "type": "Feature", "properties": { "name": "UNMISS Tambura" }, "geometry": { "type": "Point", "coordinates": [ 27.4699538, 5.5989275 ] } },
+{ "type": "Feature", "properties": { "name": "UNMISS Renk" }, "geometry": { "type": "Point", "coordinates": [ 32.797811, 11.8347001 ] } },
+{ "type": "Feature", "properties": { "name": "UNMISS Kodok" }, "geometry": { "type": "Point", "coordinates": [ 32.1093067, 9.8940725 ] } },
+{ "type": "Feature", "properties": { "name": "UNMISS Bunji" }, "geometry": { "type": "Point", "coordinates": [ 33.7443109, 9.9722071 ] } },
+{ "type": "Feature", "properties": { "name": "UNMISS Akobo" }, "geometry": { "type": "Point", "coordinates": [ 33.005992, 7.7916532 ] } },
+{ "type": "Feature", "properties": { "name": "UNMISS Adok" }, "geometry": { "type": "Point", "coordinates": [ 30.3089191, 8.1888662 ] } },
+{ "type": "Feature", "properties": { "name": "UNMISS Rumbek" }, "geometry": { "type": "Point", "coordinates": [ 29.6733447, 6.8402845 ] } }
+]
+}

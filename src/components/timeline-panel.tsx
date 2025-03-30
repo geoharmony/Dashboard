@@ -1,13 +1,13 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { AlertCircle, ChevronRight, MapPin, ArrowLeft } from "lucide-react"
+import { AlertCircle, ChevronLeft, MapPin, ArrowLeft } from "lucide-react"
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "./ui/collapsible"
-import { Badge } from "./ui/badge"
-import { Button } from "./ui/button"
-import { cn } from "../lib/utils"
-import { getTimelineEvents } from "../lib/events-utils"
-import type { Event } from "../types/events"
+import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
+import { cn } from "@/lib/utils"
+import { getTimelineEvents } from "@/lib/events-utils"
+import type { Event } from "@/types/events"
 import type * as L from "leaflet"
 
 interface TimelinePanelProps {
@@ -48,13 +48,9 @@ export function TimelinePanel({ events, selectedDate, mapInstance, onTimelineSel
 
   // Auto-open panel if there are alerts
   useEffect(() => {
-    const alertCount = filteredEvents.length
-    if (alertCount > 0 && !isOpen) {
-      setIsOpen(true)
-    } else if (alertCount === 0 && isOpen) {
-      setIsOpen(false)
-    }
-  }, [filteredEvents.length, isOpen])
+    const hasAlerts = filteredEvents.length > 0
+    setIsOpen(hasAlerts)
+  }, [filteredEvents.length])
 
   // Handle focusing on a specific timeline
   const handleFocusTimeline = (timelineId: string) => {
@@ -97,7 +93,7 @@ export function TimelinePanel({ events, selectedDate, mapInstance, onTimelineSel
               <AlertCircle className="h-4 w-4 text-muted-foreground" />
               Alerts
             </h2>
-            <ChevronRight className="h-4 w-4 text-muted-foreground cursor-pointer" onClick={() => setIsOpen(!isOpen)} />
+            <ChevronLeft className="h-4 w-4 text-muted-foreground cursor-pointer" onClick={() => setIsOpen(!isOpen)} />
           </div>
           <p className="text-sm text-muted-foreground mt-1">No alerts for the selected date range.</p>
         </div>
@@ -106,7 +102,7 @@ export function TimelinePanel({ events, selectedDate, mapInstance, onTimelineSel
   }
 
   return (
-    <div className="absolute top-16 right-4 z-[9999] w-80 bg-white rounded-md shadow-md">
+    <div className="absolute top-16 right-4 z-[9999] w-60 bg-white rounded-md shadow-md">
       <Collapsible open={isOpen} onOpenChange={setIsOpen}>
         <div className="p-3 bg-background border-b">
           <CollapsibleTrigger className="flex w-full items-center justify-between">
@@ -133,7 +129,7 @@ export function TimelinePanel({ events, selectedDate, mapInstance, onTimelineSel
                   <ArrowLeft className="h-4 w-4" />
                 </Button>
               )}
-              <ChevronRight className={cn("h-4 w-4 transition-transform duration-200", isOpen && "rotate-90")} />
+              <ChevronLeft className={cn("h-4 w-4 transition-transform duration-200", isOpen && "-rotate-90")} />
             </div>
           </CollapsibleTrigger>
         </div>

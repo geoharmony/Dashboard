@@ -4,8 +4,10 @@
     "narrative_id": "Y1",
     "location": {
       "name": "Leer, Unity State",
-      "lat": 7.55,
-      "lon": 30.45,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [30.45, 7.55]
+      },
       "admin1": "Unity",
       "admin2": "Leer"
     },
@@ -16,8 +18,10 @@
     "narrative_id": "Y1",
     "location": {
       "name": "Leer, Unity State",
-      "lat": 7.55,
-      "lon": 30.45,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [30.45, 7.55]
+      },
       "admin1": "Unity",
       "admin2": "Leer"
     },
@@ -28,8 +32,10 @@
     "narrative_id": "Y9",
     "location": {
       "name": "Magwi, Eastern Equatoria",
-      "lat": 4.13,
-      "lon": 32.3,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [32.3, 4.13]
+      },
       "admin1": "Eastern Equatoria",
       "admin2": "Magwi"
     },
@@ -40,8 +46,10 @@
     "narrative_id": "Y2",
     "location": {
       "name": "Torit, Eastern Equatoria",
-      "lat": 4.41,
-      "lon": 32.57,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [32.57, 4.41]
+      },
       "admin1": "Eastern Equatoria",
       "admin2": "Torit"
     },
@@ -52,8 +60,10 @@
     "narrative_id": "Y1",
     "location": {
       "name": "Leer, Unity State",
-      "lat": 7.55,
-      "lon": 30.45,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [30.45, 7.55]
+      },
       "admin1": "Unity",
       "admin2": "Leer"
     },
@@ -64,8 +74,10 @@
     "narrative_id": "Y3",
     "location": {
       "name": "Akobo, Jonglei State",
-      "lat": 7.78,
-      "lon": 33.0,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [33.0, 7.78]
+      },
       "admin1": "Jonglei",
       "admin2": "Akobo"
     },
@@ -76,8 +88,10 @@
     "narrative_id": "Y2",
     "location": {
       "name": "Torit, Eastern Equatoria",
-      "lat": 4.41,
-      "lon": 32.57,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [32.57, 4.41]
+      },
       "admin1": "Eastern Equatoria",
       "admin2": "Torit"
     },
@@ -88,20 +102,24 @@
     "narrative_id": "Y9",
     "location": {
       "name": "Magwi, Eastern Equatoria",
-      "lat": 4.13,
-      "lon": 32.3,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [32.3, 4.13]
+      },
       "admin1": "Eastern Equatoria",
       "admin2": "Magwi"
     },
-    "event": "Armed youth block rival community from farmland."
+    "event": "Armed youth block rival community from water access."
   },
   {
     "date": "2026-07-02",
     "narrative_id": "Y3",
     "location": {
       "name": "Akobo, Jonglei State",
-      "lat": 7.78,
-      "lon": 33.0,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [33.0, 7.78]
+      },
       "admin1": "Jonglei",
       "admin2": "Akobo"
     },
@@ -112,8 +130,10 @@
     "narrative_id": "Y21",
     "location": {
       "name": "Yirol West, Lakes State",
-      "lat": 7.822,
-      "lon": 31.163,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [31.163, 7.822]
+      },
       "admin1": "Lakes",
       "admin2": "Yirol West"
     },
@@ -124,8 +144,10 @@
     "narrative_id": "Y10",
     "location": {
       "name": "Kodok, Upper Nile",
-      "lat": 9.62,
-      "lon": 31.98,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [31.98, 9.62]
+      },
       "admin1": "Upper Nile",
       "admin2": "Kodok"
     },
@@ -136,8 +158,10 @@
     "narrative_id": "Y21",
     "location": {
       "name": "Yirol West, Lakes State",
-      "lat": 7.822,
-      "lon": 31.163,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [31.163, 7.822]
+      },
       "admin1": "Lakes",
       "admin2": "Yirol West"
     },
@@ -148,8 +172,10 @@
     "narrative_id": "Y1",
     "location": {
       "name": "Leer, Unity State",
-      "lat": 7.55,
-      "lon": 30.45,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [30.45, 7.55]
+      },
       "admin1": "Unity",
       "admin2": "Leer"
     },
@@ -163,8 +189,10 @@
     "narrative_id": "Y9",
     "location": {
       "name": "Magwi, Eastern Equatoria",
-      "lat": 4.13,
-      "lon": 32.3,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [32.3, 4.13]
+      },
       "admin1": "Eastern Equatoria",
       "admin2": "Magwi"
     },
@@ -175,8 +203,10 @@
     "narrative_id": "Y21",
     "location": {
       "name": "Yirol West, Lakes State",
-      "lat": 7.822,
-      "lon": 31.163,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [31.163, 7.822]
+      },
       "admin1": "Lakes",
       "admin2": "Yirol West"
     },
@@ -187,8 +217,10 @@
     "narrative_id": "Y2",
     "location": {
       "name": "Torit, Eastern Equatoria",
-      "lat": 4.41,
-      "lon": 32.57,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [32.57, 4.41]
+      },
       "admin1": "Eastern Equatoria",
       "admin2": "Torit"
     },
@@ -199,8 +231,10 @@
     "narrative_id": "Y10",
     "location": {
       "name": "Kodok, Upper Nile",
-      "lat": 9.62,
-      "lon": 31.98,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [31.98, 9.62]
+      },
       "admin1": "Upper Nile",
       "admin2": "Kodok"
     },
@@ -211,8 +245,10 @@
     "narrative_id": "Y3",
     "location": {
       "name": "Akobo, Jonglei State",
-      "lat": 7.78,
-      "lon": 33.0,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [33.0, 7.78]
+      },
       "admin1": "Jonglei",
       "admin2": "Akobo"
     },
@@ -223,14 +259,16 @@
     "narrative_id": "Y9",
     "location": {
       "name": "Magwi, Eastern Equatoria",
-      "lat": 4.13,
-      "lon": 32.3,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [32.3, 4.13]
+      },
       "admin1": "Eastern Equatoria",
       "admin2": "Magwi"
     },
-    "event": "Violence erupts in Omeo village over farmland access; 2 injured.",
-    "context": "Delayed rains and blocked land access → youth conflict.",
-    "narrative_summary": "UNOSAT data shows that, ACLED records reflect that delayed rains and youth land blockades triggered conflict in Magwi. Patrols confirmed abandonment of farming compounds.",
+
+    "context": "Delayed rains and blocked water access lead to conflict.",
+    "narrative_summary": "UNOSAT shows delayed rains in Magwi, ACLED reports youth water blockades triggering conflict. Patrols confirm abandonment of farming compounds.",
     "sources_referenced": ["UNOSAT", "ACLED", "KoBo", "NDVI", "ASIS"]
   },
   {
@@ -238,8 +276,10 @@
     "narrative_id": "Y10",
     "location": {
       "name": "Kodok, Upper Nile",
-      "lat": 9.62,
-      "lon": 31.98,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [31.98, 9.62]
+      },
       "admin1": "Upper Nile",
       "admin2": "Kodok"
     },
@@ -250,14 +290,16 @@
     "narrative_id": "Y21",
     "location": {
       "name": "Yirol West, Lakes State",
-      "lat": 7.822,
-      "lon": 31.163,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [31.163, 7.822]
+      },
       "admin1": "Lakes",
       "admin2": "Yirol West"
     },
     "event": "Clashes reported between herders and displaced families.",
     "context": "Post-flood displacement triggers land pressure near grazing corridors",
-    "narrative_summary": "UNOSAT satellite data shows significant flooding in Yirol West displacing over 2,000 people in early July. IOM displacement alerts confirm that makeshift settlements were erected near traditional cattle corridors. According to ACLED and CAD patrol reports, competition over water access led to clashes between displaced households and herders.",
+    "narrative_summary": "UNOSAT shows significant flooding in Yirol West displacing over 2,000 people in early July. IOM displacement alerts confirm that makeshift settlements were erected near traditional cattle corridors. According to ACLED and CAD patrol reports, competition over water access led to clashes between displaced households and herders.",
     "sources_referenced": ["UNOSAT", "IOM", "ACLED", "KoBo"]
   },
   {
@@ -265,8 +307,10 @@
     "narrative_id": "Y2",
     "location": {
       "name": "Torit, Eastern Equatoria",
-      "lat": 4.41,
-      "lon": 32.57,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [32.57, 4.41]
+      },
       "admin1": "Eastern Equatoria",
       "admin2": "Torit"
     },
@@ -280,8 +324,10 @@
     "narrative_id": "Y3",
     "location": {
       "name": "Akobo, Jonglei State",
-      "lat": 7.78,
-      "lon": 33.0,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [33.0, 7.78]
+      },
       "admin1": "Jonglei",
       "admin2": "Akobo"
     },
@@ -295,14 +341,16 @@
     "narrative_id": "Y10",
     "location": {
       "name": "Kodok, Upper Nile",
-      "lat": 9.62,
-      "lon": 31.98,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [31.98, 9.62]
+      },
       "admin1": "Upper Nile",
       "admin2": "Kodok"
     },
     "event": "Riot breaks out over water access.",
     "context": "Flooding displaced thousands; borehole conflict follows.",
-    "narrative_summary": "UNOSAT data shows flooding, IOM displacement tracking data indicates and ACLED records reflect that flooding near Kodok displaced thousands, leading to conflict over water access in host areas.",
+    "narrative_summary": "UNOSAT imagery shows flooding in the region, IOM tracking documents thousands fleeing the Kodok area. ACLED now reports rising tensions over water access in host communities as displaced populations seek refuge.",
     "sources_referenced": ["UNOSAT", "IOM", "ACLED", "CHIRPS"]
   }
 ]

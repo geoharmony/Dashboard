@@ -1,4 +1,3 @@
-"use client"
 import { Search, ChevronRight, Layers, X } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { Checkbox } from "@/components/ui/checkbox"
@@ -6,7 +5,6 @@ import { Label } from "@/components/ui/label"
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible"
 import { Button } from "@/components/ui/button"
 import { useMapContext } from "@/context/map-context"
-import { AlertsPanel } from "@/components/alerts-panel"
 
 export function Sidebar() {
   const {
@@ -21,7 +19,7 @@ export function Sidebar() {
 
   // Filter layers by search query
   const searchFilteredLayers = filteredLayers.filter((layer) =>
-    layer.name.toLowerCase().includes(searchQuery.toLowerCase()),
+    layer.name.toLowerCase().includes(searchQuery?.toLowerCase() || ""),
   )
 
   // Group layers by their group property
@@ -39,12 +37,6 @@ export function Sidebar() {
   return (
     <div className="w-64 border-r bg-background flex flex-col h-full overflow-hidden">
       <div className="flex flex-col h-full overflow-auto">
-        {/* Sidebar content - now fully scrollable */}
-        <div className="flex flex-col h-full overflow-auto">
-          {/* Alerts Panel */}
-          <AlertsPanel />
-
-          {/* Layers Panel */}
           <div className="sticky top-0 z-10 p-3 border-b bg-background">
             <div className="flex items-center justify-between mb-1">
               <h2 className="text-base font-semibold flex items-center gap-2">
@@ -122,7 +114,6 @@ export function Sidebar() {
             )}
           </div>
         </div>
-      </div>
     </div>
   )
 }

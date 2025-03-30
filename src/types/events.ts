@@ -1,14 +1,18 @@
+import { type Geometry } from "geojson"
+
 export interface Location {
   name: string
-  lat: number
-  lon: number
-  admin1: string
-  admin2: string
+  geometry: Geometry
+  // lat: number
+  // lon: number
+  admin1?: string
+  admin2?: string
+  admin3?: string
 }
 
 export interface Event {
   date: string
-  narrative_id: string // We'll keep the field name but refer to it as "timeline_id" in the UI
+  narrative_id: string
   location: Location
   event: string
   context?: string

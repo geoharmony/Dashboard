@@ -46,7 +46,8 @@ export function EventMarkers({ events, mapInstance, onMarkerClick, highlightedTi
       const isHighlighted = highlightedTimelineId && event.narrative_id === highlightedTimelineId
 
       // Create a marker with a custom icon
-      const marker = L.marker([event.location.lat, event.location.lon], {
+      if (event.location.geometry.type === "Point") {
+      const marker = L.marker([event.location.geometry.coordinates[1], event.location.geometry.coordinates[0]], {
         icon: L.divIcon({
           html: `<div style="background-color: ${isHighlighted ? "#ff4500" : "#ef4444"}; width: ${isHighlighted ? "16px" : "12px"}; height: ${isHighlighted ? "16px" : "12px"}; border-radius: 50%; border: 2px solid white; box-shadow: 0 0 0 1px ${isHighlighted ? "#ff4500" : "#ef4444"};"></div>`,
           className: "custom-div-icon",
@@ -80,6 +81,7 @@ export function EventMarkers({ events, mapInstance, onMarkerClick, highlightedTi
 
       // Add marker to layer group
       markersLayerRef.current?.addLayer(marker)
+    }
     })
   }, [mapInstance, events, onMarkerClick, highlightedTimelineId])
 

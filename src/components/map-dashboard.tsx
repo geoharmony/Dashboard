@@ -1,5 +1,3 @@
-"use client"
-
 import { useState, useEffect } from "react"
 import { MapProvider } from "../context/map-context"
 import { MapView } from "./map-view"
@@ -7,6 +5,7 @@ import { Header } from "./header"
 import { fetchGeoJSON } from "../lib/geo-utils"
 import type { Event } from "../types/events"
 import type { FeatureCollection } from "geojson"
+import { Sidebar } from "@/components/sidebar"
 
 // URLs for the GeoJSON files
 const ADMIN1_URL = "https://un5vxk64lllr7omb.public.blob.vercel-storage.com/GAUL_South_Sudan_Admin_Layer1.json"
@@ -56,9 +55,8 @@ export function MapDashboard({ events }: MapDashboardProps) {
       <div className="flex h-screen flex-col">
         <Header activeTab={activeTab} setActiveTab={setActiveTab} />
         <div className="flex flex-1 overflow-hidden">
-          <div className="relative flex-1">
-            <MapView events={events} admin1GeoJSON={admin1GeoJSON} admin2GeoJSON={admin2GeoJSON} />
-          </div>
+          <Sidebar />
+          <MapView events={events} admin1GeoJSON={admin1GeoJSON} admin2GeoJSON={admin2GeoJSON} />
         </div>
       </div>
     </MapProvider>

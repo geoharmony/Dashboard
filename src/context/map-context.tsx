@@ -1,10 +1,8 @@
-"use client"
-
 import { createContext, useContext, useState, useEffect, type ReactNode, useCallback, useRef } from "react"
 import L from "leaflet"
-import { fetchLayerData } from "@/lib/api"
-import { mockAlerts } from "@/lib/mock-alerts"
-import { fetchNarrativesData, type NarrativeCollection, type NarrativeFeature } from "@/lib/synthetic-narratives"
+import { fetchLayerData, fetchAlertsData } from "@/lib/api"
+import { type Alert } from "@/types/alerts"
+import FLOOD from "@/data/flood.json"
 
 export interface Layer {
   id: string
@@ -14,7 +12,7 @@ export interface Layer {
   group: string
   tabAssociations: string[]
   visible: boolean
-  data: any
+  data?: any
   tileUrl?: string
   tileUrlsByDate?: Record<string, string>
   leafletLayer?: L.Layer
@@ -23,23 +21,6 @@ export interface Layer {
   minZoom?: number
   maxZoom?: number
   date?: string // Optional date for time-based filtering
-}
-
-export interface Alert {
-  id: string
-  title: string
-  description: string
-  severity: "warning" | "alert"
-  date: string
-  latitude?: number
-  longitude?: number
-  geometry?: {
-    type: string
-    coordinates: number[][][]
-  }
-  admin2_region?: string
-  leafletLayer?: L.Layer
-  bounds?: L.LatLngBounds
 }
 
 interface DateRange {
@@ -55,16 +36,14 @@ interface MapContextType {
   setSelectedDate: (date: Date | null) => void
   activeCategory: string
   setActiveCategory: (category: string) => void
-  layers?: Layer[]
-  filteredLayers?: Layer[]
+  layers: Layer[]
+  filteredLayers: Layer[]
   alerts?: Alert[]
   filteredAlerts?: Alert[]
   activeAlerts?: string[]
   toggleLayer?: (id: string) => void
   focusOnAlert?: (id: string) => void
   filterLayersByCategory?: (category: string) => void
-  narratives?: NarrativeCollection | null
-  filteredNarratives?: NarrativeFeature[]
   searchQuery?: string
   setSearchQuery?: (query: string) => void
   isSearchVisible?: boolean
@@ -103,23 +82,22 @@ export function MapProvider({ children }: { children: ReactNode }) {
     end: new Date("2026-12-31"),
   })
   const [activeCategory, setActiveCategory] = useState<string>("conflict-risk")
+
   const [layers, setLayers] = useState<Layer[]>([])
   const [filteredLayers, setFilteredLayers] = useState<Layer[]>([])
-  const [alerts, setAlerts] = useState<Alert[]>(mockAlerts)
+
+  const [alerts, setAlerts] = useState<Alert[]>([])
   const [filteredAlerts, setFilteredAlerts] = useState<Alert[]>([])
 
   // Initialize all alerts as active by default
-  const [activeAlerts, setActiveAlerts] = useState<string[]>(mockAlerts.map((alert) => alert.id))
+  const [activeAlerts, setActiveAlerts] = useState<string[]>([])
 
-  const [narratives, setNarratives] = useState<NarrativeCollection | null>(null)
-  const [filteredNarratives, setFilteredNarratives] = useState<NarrativeFeature[]>([])
   const [searchQuery, setSearchQuery] = useState<string>("")
   const [isSearchVisible, setIsSearchVisible] = useState<boolean>(false)
 
   // Use refs to track active layers and markers
   const activeLayersRef = useRef(new Map<string, L.Layer>())
   const activeAlertsRef = useRef(new Map<string, L.Layer>())
-  const narrativesLayerRef = useRef<L.GeoJSON | null>(null)
   const pendingUpdatesRef = useRef(false)
 
   // Fetch initial layer data
@@ -130,9 +108,9 @@ export function MapProvider({ children }: { children: ReactNode }) {
         const layerData = await fetchLayerData()
         setLayers(layerData)
 
-        // Fetch narratives data
-        const narrativesData = await fetchNarrativesData()
-        setNarratives(narrativesData)
+        // Fetch alerts data
+        const alertsData = await fetchAlertsData()
+        setAlerts(alertsData)
       } catch (error) {
         console.error("Failed to load initial data:", error)
       }
@@ -146,7 +124,6 @@ export function MapProvider({ children }: { children: ReactNode }) {
     if (!selectedDate) {
       setFilteredLayers(layers)
       setFilteredAlerts(alerts)
-      setFilteredNarratives(narratives?.features || [])
       return
     }
 
@@ -158,15 +135,20 @@ export function MapProvider({ children }: { children: ReactNode }) {
       // Filter data based on date if applicable
       if (layer.type === "geojson" && layer.data) {
         // Filter GeoJSON features
+        console.group(layer.id)
+        console.log('layer', layer.id, layer.data.features);
         if (layer.data.features) {
           layerCopy.data = {
             ...layer.data,
             features: layer.data.features.filter((feature: any) => {
               // Keep features without dates or with matching dates
-              return !feature.properties.date || datesMatch(feature.properties.date, selectedDate)
+              const date = feature.properties?.date
+              console.log(feature, date, !date || datesMatch(date, selectedDate))
+              return !date || datesMatch(date, selectedDate)
             }),
           }
         }
+        console.groupEnd()
       } else if (layer.type === "csv" || layer.type === "marker") {
         // Filter array data
         if (Array.isArray(layer.data)) {
@@ -195,15 +177,6 @@ export function MapProvider({ children }: { children: ReactNode }) {
 
     setFilteredAlerts(newFilteredAlerts)
 
-    // Filter narratives based on date
-    if (narratives) {
-      const dateStr = formatDateForComparison(selectedDate)
-      const newFilteredNarratives = narratives.features.filter((feature) => {
-        return feature.properties.Date === dateStr
-      })
-      setFilteredNarratives(newFilteredNarratives)
-    }
-
     // Update active alerts to only include those that match the selected date
     setActiveAlerts((prev) =>
       prev.filter((alertId) => {
@@ -211,11 +184,16 @@ export function MapProvider({ children }: { children: ReactNode }) {
         return !!alert
       }),
     )
-  }, [selectedDate, layers, alerts, narratives])
+  }, [selectedDate, layers, alerts])
 
   // Clean up all layers from the map
   const cleanupAllLayers = useCallback(() => {
     if (!mapInstance) return
+
+    window.mapInstance = mapInstance
+    window.flood = FLOOD
+
+
 
     // Remove all layer markers
     activeLayersRef.current.forEach((layer) => {
@@ -229,11 +207,6 @@ export function MapProvider({ children }: { children: ReactNode }) {
     })
     activeAlertsRef.current.clear()
 
-    // Remove narratives layer
-    if (narrativesLayerRef.current) {
-      mapInstance.removeLayer(narrativesLayerRef.current)
-      narrativesLayerRef.current = null
-    }
   }, [mapInstance])
 
   // Update map when filtered layers or active category changes
@@ -298,12 +271,18 @@ export function MapProvider({ children }: { children: ReactNode }) {
                   const popupContent = `
                     <div class="p-2">
                       <div class="font-medium">${feature.properties.name || "Unnamed Area"}</div>
-                      <div>Severity: ${feature.properties.severity || "N/A"}</div>
+                      ${feature.properties.severity ? `<div>Severity: ${feature.properties.severity}</div>` : ""}
                       ${feature.properties.description ? `<div>${feature.properties.description}</div>` : ""}
                       ${
                         feature.properties.date
                           ? `<div>Date: ${new Date(feature.properties.date).toLocaleDateString()}</div>`
                           : ""
+                      }
+                      ${
+                        Object.keys(feature.properties).map(
+                          (key) =>
+                            `<div>${key}: ${feature.properties[key]}</div>`
+                        ).join('')
                       }
                     </div>
                   `
@@ -428,56 +407,13 @@ export function MapProvider({ children }: { children: ReactNode }) {
           }
         })
 
-        // Add narratives layer if we have filtered narratives
-        if (filteredNarratives.length > 0 && mapInstance) {
-          const narrativesGeoJSON = {
-            type: "FeatureCollection",
-            features: filteredNarratives,
-          }
-
-          narrativesLayerRef.current = L.geoJSON(narrativesGeoJSON as any, {
-            pointToLayer: (feature, latlng) => {
-              return L.circleMarker(latlng, {
-                radius: 8,
-                fillColor: "#3b82f6", // Blue color for narratives
-                color: "#1e40af",
-                weight: 2,
-                opacity: 1,
-                fillOpacity: 0.7,
-              })
-            },
-            onEachFeature: (feature, layer) => {
-              if (feature.properties) {
-                const props = feature.properties
-                const popupContent = `
-                  <div class="p-2 max-w-xs">
-                    <div class="font-medium">${props.Location}</div>
-                    <div class="text-xs mt-1">${new Date(props.Date).toLocaleDateString()}</div>
-                    <div class="mt-1 text-sm">${props.Event}</div>
-                    <div class="mt-1 text-xs text-muted-foreground">${props.Context}</div>
-                  </div>
-                `
-
-                const popup = L.popup({
-                  closeButton: true,
-                  offset: L.point(0, -8),
-                  maxWidth: 300,
-                  className: "narrative-popup",
-                }).setContent(popupContent)
-
-                layer.bindPopup(popup)
-              }
-            },
-          }).addTo(mapInstance)
-        }
-
         pendingUpdatesRef.current = false
       } catch (error) {
         console.error("Error updating map layers:", error)
         pendingUpdatesRef.current = false
       }
     })
-  }, [mapInstance, filteredLayers, activeCategory, cleanupAllLayers, filteredNarratives])
+  }, [mapInstance, filteredLayers, activeCategory, cleanupAllLayers])
 
   // Handle alert visualization
   useEffect(() => {
@@ -738,9 +674,6 @@ export function MapProvider({ children }: { children: ReactNode }) {
         activeAlertsRef.current.forEach((layer) => {
           mapInstance.removeLayer(layer)
         })
-        if (narrativesLayerRef.current) {
-          mapInstance.removeLayer(narrativesLayerRef.current)
-        }
       }
     }
   }, [mapInstance])
@@ -797,8 +730,6 @@ export function MapProvider({ children }: { children: ReactNode }) {
         toggleLayer,
         focusOnAlert,
         filterLayersByCategory,
-        narratives,
-        filteredNarratives,
         searchQuery,
         setSearchQuery,
         isSearchVisible,

@@ -4,15 +4,15 @@ import { useEffect, useRef, useState, useCallback } from "react"
 import L from "leaflet"
 import "leaflet/dist/leaflet.css"
 import { useMapContext } from "../context/map-context"
-import { TimeSlider } from "./time-slider"
 import { HomeButton } from "./home-button"
-import { CoordinatesDisplay } from "./coordinates-display"
+// import { CoordinatesDisplay } from "./coordinates-display"
 import { AdminBoundaries } from "./admin-boundaries"
 import { EventMarkers } from "./event-markers"
 import { TimelinePanel } from "./timeline-panel"
 import { filterEventsByDateRange } from "../lib/events-utils"
 import type { Event } from "../types/events"
 import type { FeatureCollection } from "geojson"
+import { DateSlider } from "@/components/slider-v2"
 
 interface MapViewProps {
   events: Event[]
@@ -92,26 +92,27 @@ export function MapView({ events, admin1GeoJSON, admin2GeoJSON }: MapViewProps) 
           markerZoomAnimation: false,
         })
 
+        window.mapRef = mapRef
         // Add base tile layer
         L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-          attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+          attribution: '&copy; <a target="_blank" href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
           minZoom: 3,
           maxZoom: 19,
         }).addTo(mapRef.current)
 
         // Disable Ukrainian flag from attribution control
-        mapRef.current.attributionControl.setPrefix("")
+        mapRef.current.attributionControl.setPrefix("<a target='_blank' href='https://leafletjs.com'>Leaflet</a>")
 
         // Save map instance to context
         setMapInstance(mapRef.current)
         isInitializedRef.current = true
 
         // Force a resize event to ensure tiles load properly
-        setTimeout(() => {
-          if (mapRef.current) {
-            mapRef.current.invalidateSize()
-          }
-        }, 100)
+        // setTimeout(() => {
+        //   if (mapRef.current) {
+        //     mapRef.current.invalidateSize()
+        //   }
+        // }, 100)
       } catch (error) {
         console.error("Error initializing map:", error)
       }
@@ -146,22 +147,17 @@ export function MapView({ events, admin1GeoJSON, admin2GeoJSON }: MapViewProps) 
 
     window.addEventListener("resize", handleResize)
 
-    // Initial invalidateSize to fix any sizing issues
-    setTimeout(handleResize, 200)
-
     return () => {
       window.removeEventListener("resize", handleResize)
     }
   }, [])
 
   return (
-    <div className="relative flex flex-col h-full">
+    <div className="relative flex flex-grow flex-col h-full">
       <div ref={mapContainerRef} className="flex-1 w-full" />
 
-      {/* Enhanced components */}
-      <TimeSlider selectedDate={selectedDate} setSelectedDate={setSelectedDate} dateRange={dateRange} />
       <HomeButton mapInstance={mapRef.current} />
-      <CoordinatesDisplay mapInstance={mapRef.current} />
+      {/* <CoordinatesDisplay mapInstance={mapRef.current} /> */}
       <TimelinePanel
         events={filteredEvents}
         selectedDate={selectedDate}
@@ -170,13 +166,13 @@ export function MapView({ events, admin1GeoJSON, admin2GeoJSON }: MapViewProps) 
       />
 
       {/* Map layers */}
-      <AdminBoundaries admin1GeoJSON={admin1GeoJSON} admin2GeoJSON={admin2GeoJSON} mapInstance={mapRef.current} />
       <EventMarkers
         events={filteredEvents}
         mapInstance={mapRef.current}
         onMarkerClick={handleMarkerClick}
         highlightedTimelineId={highlightedTimelineId}
       />
+      <DateSlider selectedDate={selectedDate} setSelectedDate={setSelectedDate} dateRange={dateRange} />
     </div>
   )
 }

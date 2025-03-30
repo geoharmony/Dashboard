@@ -3,12 +3,13 @@ import { MapDashboard } from "./components/map-dashboard"
 import type { Event } from "./types/events"
 import eventsData from "./data/unmiss-events-chronological.json"
 
+
 function App() {
   const [events, setEvents] = useState<Event[]>([])
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    // In a real application, you would fetch this data from an API
+    // In the future, fetch this data from an API
     // For this example, we're using the imported JSON data
     setEvents(eventsData as Event[])
     setIsLoading(false)

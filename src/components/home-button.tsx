@@ -1,5 +1,3 @@
-"use client"
-
 import { Home } from "lucide-react"
 import { Button } from "./ui/button"
 import type L from "leaflet"
