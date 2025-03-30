@@ -18,7 +18,7 @@ interface MapViewProps {
 
 export function MapView({ events }: MapViewProps) {
   const mapRef = useRef<L.Map | null>(null)
-  const { setMapInstance, selectedDate, setSelectedDate, dateRange, layers } = useMapContext()
+  const { setMapInstance, selectedDate, setSelectedDate, dateRange, layers, setBaseLayer, setTopoLayer } = useMapContext()
   const mapContainerRef = useRef<HTMLDivElement>(null)
   const isInitializedRef = useRef(false)
   const [filteredEvents, setFilteredEvents] = useState<Event[]>([])
@@ -89,12 +89,19 @@ export function MapView({ events }: MapViewProps) {
         })
 
         window.mapRef = mapRef
+
         // Add base tile layer
-        L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        const baseLayer = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
           attribution: '&copy; <a target="_blank" href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
           minZoom: 3,
           maxZoom: 19,
         }).addTo(mapRef.current)
+        setBaseLayer(baseLayer)
+        setTopoLayer(L.tileLayer("https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png", {
+          attribution: '&copy; <a target="_blank" href="https://www.opentopomap.org/copyright">OpenTopoMap</a> contributors',
+          minZoom: 3,
+          maxZoom: 19,
+        }))
 
         // Disable Ukrainian flag from attribution control
         mapRef.current.attributionControl.setPrefix("<a target='_blank' href='https://leafletjs.com'>Leaflet</a>")

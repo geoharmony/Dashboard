@@ -2,7 +2,6 @@ import { createContext, useContext, useState, useEffect, type ReactNode, useCall
 import L from "leaflet"
 import { fetchLayerData, fetchAlertsData } from "@/lib/api"
 import { type Alert } from "@/types/alerts"
-import FLOOD from "@/data/flood.json"
 
 export interface Layer {
   id: string
@@ -48,6 +47,12 @@ interface MapContextType {
   setSearchQuery?: (query: string) => void
   isSearchVisible?: boolean
   setIsSearchVisible?: (visible: boolean) => void
+  showingTopo?: boolean
+  setShowingTopo?: (showing: boolean) => void
+  baseLayer?: L.TileLayer
+  setBaseLayer?: (layer: L.TileLayer) => void
+  topoLayer?: L.TileLayer
+  setTopoLayer?: (layer: L.TileLayer) => void
 }
 
 const MapContext = createContext<MapContextType | undefined>(undefined)
@@ -99,6 +104,11 @@ export function MapProvider({ children }: { children: ReactNode }) {
   const activeLayersRef = useRef(new Map<string, L.Layer>())
   const activeAlertsRef = useRef(new Map<string, L.Layer>())
   const pendingUpdatesRef = useRef(false)
+
+  // Topo layer state
+  const [showingTopo, setShowingTopo] = useState<boolean>(false)
+  const [baseLayer, setBaseLayer] = useState<L.TileLayer | null>(null)
+  const [topoLayer, setTopoLayer] = useState<L.TileLayer | null>(null)
 
   // Fetch initial layer data
   useEffect(() => {
@@ -189,11 +199,6 @@ export function MapProvider({ children }: { children: ReactNode }) {
   // Clean up all layers from the map
   const cleanupAllLayers = useCallback(() => {
     if (!mapInstance) return
-
-    window.mapInstance = mapInstance
-    window.flood = FLOOD
-
-
 
     // Remove all layer markers
     activeLayersRef.current.forEach((layer) => {
@@ -712,6 +717,20 @@ export function MapProvider({ children }: { children: ReactNode }) {
     setActiveCategory(category)
   }, [])
 
+  useEffect(() => {
+    if (!mapInstance) return
+
+    if (!baseLayer || !topoLayer) return
+
+    if (showingTopo) {
+      mapInstance.addLayer(topoLayer)
+      mapInstance.removeLayer(baseLayer)
+    } else {
+      mapInstance.removeLayer(topoLayer)
+      mapInstance.addLayer(baseLayer)
+    }
+  }, [mapInstance, showingTopo, baseLayer, topoLayer])
+
   return (
     <MapContext.Provider
       value={{
@@ -734,6 +753,12 @@ export function MapProvider({ children }: { children: ReactNode }) {
         setSearchQuery,
         isSearchVisible,
         setIsSearchVisible,
+        showingTopo,
+        setShowingTopo,
+        baseLayer,
+        setBaseLayer,
+        topoLayer,
+        setTopoLayer,
       }}
     >
       {children}

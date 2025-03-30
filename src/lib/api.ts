@@ -76,9 +76,9 @@ export async function fetchLayerData(): Promise<Layer[]> {
       category: "Conflict",
       group: "Conflict",
       tabAssociations: ["conflict-risk", "reports"],
-      visible: true,
+      visible: false,
       data: ADM2_CRISIS,
-      color: "#ff00ff",
+      color: "#333333",
     },
     {
       id: "idp",
