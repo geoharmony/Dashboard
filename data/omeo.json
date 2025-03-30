@@ -1,0 +1,69 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    32.222633,
+                    4.219033
+                ]
+            },
+            "properties": {
+                "status_id": "Unknown",
+                "report_date": "2005-04-07",
+                "source": "OCHA South Sudan",
+                "water_source_clean": "Borehole/Tubewell",
+                "water_tech_clean": "Hand Pump - India Mark",
+                "clean_country_id": "SSD",
+                "clean_country_name": "South Sudan",
+                "clean_adm1": "Eastern Equatoria",
+                "clean_adm2": "Magwi",
+                "clean_adm3": "",
+                "clean_adm4": "",
+                "activity_id": "",
+                "scheme_id": "",
+                "wpdx_id": "6GPJ669F+J36",
+                "install_year": "",
+                "installer": "",
+                "rehab_year": "",
+                "rehabilitator": "",
+                "management_clean": "",
+                "pay_clean": "",
+                "status_clean": "Non-Functional",
+                "fecal_coliform_presence": "",
+                "fecal_coliform_value": "",
+                "subjective_quality": "",
+                "notes": "",
+                "local_population": "3223",
+                "assigned_population": "3223",
+                "facility_type": "Improved",
+                "water_source_category": "Well",
+                "water_tech_category": "Hand Pump",
+                "created_timestamp": "2021-12-12T20:05:44",
+                "dataset_title": "OCHA_South Sudan_2012",
+                "rehab_priority": "3223",
+                "would_gain_access": "",
+                "usage_cap": "300",
+                "criticality": "1.0",
+                "pressure": "10.743333333333334",
+                "distance_to_primary": "24397.030467601886",
+                "distance_to_secondary": "24.64528568811954",
+                "distance_to_tertiary": "15708.922872732366",
+                "distance_to_city": "71119.13773723251",
+                "distance_to_town": "13212.079747888347",
+                "is_urban": "False",
+                "days_since_report": "7017",
+                "staleness": "10.949778312276335",
+                "prediction_yes_0y": "0.5986123115",
+                "prediction_yes_2y": "0.5986123115",
+                "prediction_no_0y": "0.4013876885",
+                "prediction_no_2y": "0.4013876885",
+                "predicted_status_0y": "Yes",
+                "predicted_status_2y": "Yes",
+                "predicted_category": "func-new"
+            }
+        }
+    ]
+}
