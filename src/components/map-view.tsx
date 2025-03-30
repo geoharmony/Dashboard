@@ -1,5 +1,3 @@
-"use client"
-
 import { useEffect, useRef, useState, useCallback } from "react"
 import L from "leaflet"
 import "leaflet/dist/leaflet.css"
@@ -11,16 +9,13 @@ import { EventMarkers } from "./event-markers"
 import { TimelinePanel } from "./timeline-panel"
 import { filterEventsByDateRange } from "../lib/events-utils"
 import type { Event } from "../types/events"
-import type { FeatureCollection } from "geojson"
-import { DateSlider } from "@/components/slider-v2"
+import { DateSlider } from "@/components/slider"
 
 interface MapViewProps {
   events: Event[]
-  admin1GeoJSON: FeatureCollection | null
-  admin2GeoJSON: FeatureCollection | null
 }
 
-export function MapView({ events, admin1GeoJSON, admin2GeoJSON }: MapViewProps) {
+export function MapView({ events }: MapViewProps) {
   const mapRef = useRef<L.Map | null>(null)
   const { setMapInstance, selectedDate, setSelectedDate, dateRange } = useMapContext()
   const mapContainerRef = useRef<HTMLDivElement>(null)
@@ -107,12 +102,6 @@ export function MapView({ events, admin1GeoJSON, admin2GeoJSON }: MapViewProps) 
         setMapInstance(mapRef.current)
         isInitializedRef.current = true
 
-        // Force a resize event to ensure tiles load properly
-        // setTimeout(() => {
-        //   if (mapRef.current) {
-        //     mapRef.current.invalidateSize()
-        //   }
-        // }, 100)
       } catch (error) {
         console.error("Error initializing map:", error)
       }
@@ -157,7 +146,6 @@ export function MapView({ events, admin1GeoJSON, admin2GeoJSON }: MapViewProps) 
       <div ref={mapContainerRef} className="flex-1 w-full" />
 
       <HomeButton mapInstance={mapRef.current} />
-      {/* <CoordinatesDisplay mapInstance={mapRef.current} /> */}
       <TimelinePanel
         events={filteredEvents}
         selectedDate={selectedDate}

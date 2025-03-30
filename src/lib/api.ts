@@ -132,21 +132,21 @@ export async function fetchLayerData(): Promise<Layer[]> {
     //   minZoom: 0,
     //   maxZoom: 13,
     // },
-    {
-      id: "drought-severity-index",
-      name: "Drought Severity Index",
-      type: "raster",
-      category: "Environmental",
-      group: "Environmental",
-      tabAssociations: ["drought-stress", "reports"],
-      visible: false,
-      tileUrl: droughtTileUrls["2026-08-15"], // Default tile URL
-      tileUrlsByDate: droughtTileUrls,
-      color: "#ff9800",
-      opacity: 0.8,
-      minZoom: 0,
-      maxZoom: 13,
-    },
+    // {
+    //   id: "drought-severity-index",
+    //   name: "Drought Severity Index",
+    //   type: "raster",
+    //   category: "Environmental",
+    //   group: "Environmental",
+    //   tabAssociations: ["drought-stress", "reports"],
+    //   visible: false,
+    //   tileUrl: droughtTileUrls["2026-08-15"], // Default tile URL
+    //   tileUrlsByDate: droughtTileUrls,
+    //   color: "#ff9800",
+    //   opacity: 0.8,
+    //   minZoom: 0,
+    //   maxZoom: 13,
+    // },
   ]
 }
 
