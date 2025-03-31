@@ -13,6 +13,8 @@ import { UNMISSLayer } from "@/components/unmiss-layer"
 import { IDPLayer } from "./idp-layer"
 import { ConflictEvents } from "./conflict-events"
 import { ConflictEventPoints } from "./conflict-event-points"
+import { UNMISSCivilAffairs } from "./unmiss-civil-affairs"
+import { UNMISSPatrol } from "./unmiss-patrol"
 import { FloodLayer } from "./flood-layer"
 import { PopulatedPlaces } from "./populated-places"
 
@@ -173,6 +175,12 @@ export function MapView({ events }: MapViewProps) {
 
       <ConflictEventPoints
         isVisible={layers.filter(layer => layer.id === "conflict-events").some(layer => layer.visible)}
+      />
+      <UNMISSCivilAffairs
+        isVisible={layers.filter(layer => layer.id === "unmiss-civil-affairs").some(layer => layer.visible)}
+      />
+      <UNMISSPatrol
+        isVisible={layers.filter(layer => layer.id === "unmiss-patrol").some(layer => layer.visible)}
       />
 
       <EventMarkers

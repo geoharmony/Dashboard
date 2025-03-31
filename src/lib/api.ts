@@ -9,6 +9,9 @@ import UNMISS from "@/data/UNMISS South Sudan Locations.json"
 import IDP_DATA from "@/data/cccm_combined.json"
 import FloodPolygon from "@/data/flood060509.json"
 import ADM2_CRISIS from "@/data/crisis-events.json"
+import UNMISS_CIVIL_AFFIARS from "@/data/unmiss_civil_affairs_geo.json"
+import UNMISS_PATROL from "@/data/unmiss_patrol_geo.json"
+
 
 import { type Alert } from "@/types/alerts"
 
@@ -105,7 +108,28 @@ export async function fetchLayerData(): Promise<Layer[]> {
       color: "#00FF00",
     },
     {
-      id: "unmiss",
+      id: "unmiss-civil-affairs",
+      name: "UNMISS Civil Affairs",
+      type: "geojson",
+      category: "Humanitarian",
+      group: "Humanitarian",
+      tabAssociations: [],
+      visible: false,
+      data: UNMISS_CIVIL_AFFIARS,
+      color: "#00FF00",
+    },
+    {
+      id: "unmiss-patrol",
+      name: "UNMISS Patrol",
+      type: "geojson",
+      category: "Humanitarian",
+      group: "Humanitarian",
+      tabAssociations: [],
+      visible: false,
+      data: UNMISS_PATROL,
+      color: "#00FF00",
+    },
+    { id: "unmiss",
       name: "UNMISS",
       type: "geojson",
       category: "Humanitarian",

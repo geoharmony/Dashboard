@@ -1,22 +1,22 @@
 import L from "leaflet"
 import { useMapContext } from "@/context/map-context"
 import { useEffect, useRef } from "react"
-import Events from "@/data/events.json"
+import Geo from "@/data/unmiss_civil_affairs_geo.json"
 
 
 
-export function ConflictEventPoints({ isVisible }: { isVisible: boolean }) {
+export function UNMISSCivilAffairs({ isVisible }: { isVisible: boolean }) {
   const { mapInstance } = useMapContext()
-  const conflictPointRef = useRef<L.GeoJSON | null>(null)
+  const unmissCivilAffairsRef = useRef<L.GeoJSON | null>(null)
 
   useEffect(() => {
     if (!mapInstance) return
 
     // Clean up function
     return () => {
-      if (conflictPointRef.current) {
-        mapInstance.removeLayer(conflictPointRef.current)
-        conflictPointRef.current = null
+      if (unmissCivilAffairsRef.current) {
+        mapInstance.removeLayer(unmissCivilAffairsRef.current)
+        unmissCivilAffairsRef.current = null
       }
     }
   }, [mapInstance])
@@ -25,14 +25,14 @@ export function ConflictEventPoints({ isVisible }: { isVisible: boolean }) {
     if (!mapInstance) return
 
     // Remove existing layer if it exists
-    if (conflictPointRef.current) {
-      mapInstance.removeLayer(conflictPointRef.current)
+    if (unmissCivilAffairsRef.current) {
+      mapInstance.removeLayer(unmissCivilAffairsRef.current)
     }
 
     if (!isVisible) return
 
     // Create IDP layer
-    conflictPointRef.current = L.geoJSON(Events, {
+    unmissCivilAffairsRef.current = L.geoJSON(Geo, {
       pointToLayer: (feature, latlng) => {
         return L.circleMarker(latlng, {
           radius: 10,
