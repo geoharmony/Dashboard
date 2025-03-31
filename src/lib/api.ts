@@ -4,6 +4,7 @@ import { type FeatureCollection } from "geojson"
 import ADMIN1 from "@/data/GAUL_South_Sudan_Admin_Layer1.json"
 import ADMIN2 from "@/data/GAUL_South_Sudan_Admin_Layer2.json"
 import EVENTS from "@/data/unmiss-events-chronological.json"
+import CONFLICT_EVENTS from "@/data/events.json"
 import UNMISS from "@/data/UNMISS South Sudan Locations.json"
 import IDP_DATA from "@/data/cccm_combined.json"
 import FloodPolygon from "@/data/flood060509.json"
@@ -82,6 +83,17 @@ export async function fetchLayerData(): Promise<Layer[]> {
       color: "#333333",
     },
     {
+      id: "conflict-events",
+      name: "Conflict Events",
+      type: "geojson",
+      category: "Conflict",
+      group: "Conflict",
+      tabAssociations: ["conflict-risk", "reports"],
+      visible: false,
+      data: CONFLICT_EVENTS,
+      color: "#333333",
+    },
+    {
       id: "idp",
       name: "IDP",
       type: "geojson",
@@ -125,7 +137,7 @@ export async function fetchLayerData(): Promise<Layer[]> {
       category: "Environmental",
       group: "Environmental",
       tabAssociations: [],
-      visible: true,
+      visible: false,
       data: FloodPolygon,
       color: "#00FF00",
     },

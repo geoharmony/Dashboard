@@ -12,6 +12,7 @@ import { AdminBoundaries } from "@/components/admin-boundaries"
 import { UNMISSLayer } from "@/components/unmiss-layer"
 import { IDPLayer } from "./idp-layer"
 import { ConflictEvents } from "./conflict-events"
+import { ConflictEventPoints } from "./conflict-event-points"
 // import { FloodLayer } from "./flood-layer"
 import { PopulatedPlaces } from "./populated-places"
 
@@ -168,6 +169,10 @@ export function MapView({ events }: MapViewProps) {
       <ConflictEvents
         isVisible={layers.filter(layer => layer.id === "conflict-risk").some(layer => layer.visible)}
         selectedDate={selectedDate}
+      />
+
+      <ConflictEventPoints
+        isVisible={layers.filter(layer => layer.id === "conflict-events").some(layer => layer.visible)}
       />
 
       <EventMarkers
