@@ -34,6 +34,15 @@ export function Sidebar() {
     {} as Record<string, typeof filteredLayers>,
   )
 
+  // Groups order with Coming Soon last
+  const groups = Object.keys(groupedLayers)
+  const orderedGroups = [...groups].sort((a, b) => {
+    if (a === "Coming Soon") return 1
+    if (b === "Coming Soon") return -1
+    return a.localeCompare(b)
+  })
+  console.log(orderedGroups)
+
   return (
     <div className="w-64 border-r bg-background flex flex-col h-full overflow-hidden">
       <div className="flex flex-col h-full overflow-auto">
@@ -83,18 +92,19 @@ export function Sidebar() {
                 No layers available for the selected date
               </div>
             ) : (
-              Object.entries(groupedLayers).map(([group, groupLayers]) => (
-                <Collapsible key={group} defaultOpen className="mb-3">
+              orderedGroups.map(group => (
+                <Collapsible key={group} defaultOpen className={`mb-3 ${group === "Coming Soon" ? "text-muted-foreground" : ""}`}>
                   <CollapsibleTrigger className="flex w-full items-center justify-between font-medium">
                     <span className="text-sm">{group}</span>
                     <ChevronRight className="h-4 w-4 transition-transform duration-200 ui-open:rotate-90" />
                   </CollapsibleTrigger>
                   <CollapsibleContent className="mt-1 space-y-1">
-                    {groupLayers.map((layer) => (
+                    {groupedLayers[group]?.map((layer) => (
                       <div key={layer.id} className="flex items-center space-x-2 py-1">
                         <Checkbox
                           id={`layer-${layer.id}`}
                           checked={layer.visible}
+                          disabled={layer.disabled}
                           onCheckedChange={() => toggleLayer(layer.id)}
                         />
                         <Label
