@@ -16,6 +16,8 @@ import { ConflictEventPoints } from "./conflict-event-points"
 import { UNMISSCivilAffairs } from "./unmiss-civil-affairs"
 import { UNMISSPatrol } from "./unmiss-patrol"
 import { FloodLayer } from "./flood-layer"
+import { RoadLayer } from "./road"
+import { RiverLayer } from "./river"
 import { PopulatedPlaces } from "./populated-places"
 
 interface MapViewProps {
@@ -200,6 +202,12 @@ export function MapView({ events }: MapViewProps) {
       <PopulatedPlaces isVisible={layers.filter(layer => layer.id === "populated_places").some(layer => layer.visible)}/>
       <FloodLayer 
         isVisible={layers.filter(layer => layer.id === "flood").some(layer => layer.visible)}
+      />
+      <RiverLayer 
+        isVisible={layers.filter(layer => layer.id === "river").some(layer => layer.visible)}
+      />
+      <RoadLayer 
+        isVisible={layers.filter(layer => layer.id === "road").some(layer => layer.visible)}
       />
       
 

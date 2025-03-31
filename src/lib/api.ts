@@ -11,6 +11,8 @@ import FloodPolygon from "@/data/flood060509.json"
 import ADM2_CRISIS from "@/data/crisis-events.json"
 import UNMISS_CIVIL_AFFIARS from "@/data/unmiss_civil_affairs_geo.json"
 import UNMISS_PATROL from "@/data/unmiss_patrol_geo.json"
+import ROAD from "@/data/road.json"
+import RIVER from "@/data/river.json"
 
 
 import { type Alert } from "@/types/alerts"
@@ -72,6 +74,28 @@ export async function fetchLayerData(): Promise<Layer[]> {
       tabAssociations: [],
       visible: false,
       data: ADMIN2,
+      color: "#ff00ff",
+    },
+    {
+      id: "road",
+      name: "Road",
+      type: "geojson",
+      category: "Geographic",
+      group: "Geographic",
+      tabAssociations: [],
+      visible: false,
+      data: ROAD,
+      color: "#ff00ff",
+    },
+    {
+      id: "river",
+      name: "River",
+      type: "geojson",
+      category: "Geographic",
+      group: "Geographic",
+      tabAssociations: [],
+      visible: false,
+      data: RIVER,
       color: "#ff00ff",
     },
     {
