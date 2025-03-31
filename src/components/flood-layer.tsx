@@ -3,8 +3,8 @@ import { useMapContext } from "@/context/map-context"
 import { useEffect, useRef } from "react"
 import FloodPolygon from "@/data/flood060509.json"
 
-export function FloodLayer({isVisible}) {
-  const { mapInstance, layers } = useMapContext()
+export function FloodLayer({isVisible}: { isVisible: boolean }) {
+  const { mapInstance} = useMapContext()
   const FloodLayerRef = useRef<L.GeoJSON | null>(null)
 
 
@@ -28,13 +28,15 @@ export function FloodLayer({isVisible}) {
       mapInstance.removeLayer(FloodLayerRef.current)
     }
 
+    if (!isVisible) return
+
     // Create IDP layer
     FloodLayerRef.current = L.geoJSON(FloodPolygon, {
       style: () => ({
-        color: "#00FF00", // Green
+        color: "#0000FF", // Green
         weight: 2,
         opacity: 0.7,
-        fillOpacity: 0.1,
+        fillOpacity: 0.4,
         fillColor: "#00FF00",
       })
     }).addTo(mapInstance)
