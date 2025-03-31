@@ -2,12 +2,17 @@ import L from "leaflet"
 import { useMapContext } from "@/context/map-context"
 import { useEffect, useRef } from "react"
 import Events from "@/data/events.json"
-
-
+import { isSameDay, parse } from "date-fns"
+import ConflictIcon from "@/assets/icon_conflict_transparentbox.svg"
 
 export function ConflictEventPoints({ isVisible }: { isVisible: boolean }) {
-  const { mapInstance } = useMapContext()
+  const { mapInstance, selectedDate } = useMapContext()
   const conflictPointRef = useRef<L.GeoJSON | null>(null)
+  const icon = L.icon({
+    iconUrl: ConflictIcon,
+    iconSize: [25, 25],
+    iconAnchor: [12, 12],
+  })
 
   useEffect(() => {
     if (!mapInstance) return
@@ -31,39 +36,33 @@ export function ConflictEventPoints({ isVisible }: { isVisible: boolean }) {
 
     if (!isVisible) return
 
-    // Create IDP layer
     conflictPointRef.current = L.geoJSON(Events, {
       pointToLayer: (feature, latlng) => {
-        return L.circleMarker(latlng, {
-          radius: 10,
-          color: "#357981",
-          weight: 2,
-          opacity: 0.7,
-          fillOpacity: 0.35,
-          fillColor: "#357981",
-        })
+        return L.marker(latlng, { icon })
       },
-      // style: () => ({
-      //   color: "#357981", // Green
-      //   weight: 2,
-      //   opacity: 0.7,
-      //   fillOpacity: 0.35,
-      //   fillColor: "#357981",
-      // }),
+      filter: (feature) => {
+        if (!selectedDate) return false
+        if (!feature.properties.event_date) return false
+        return isSameDay(parse(feature.properties.event_date, "yyyy-MM-dd", new Date()), selectedDate)
+      },
       onEachFeature: (feature, layer) => {
         if (feature.properties) {
+          const locationFields = ["admin1", "admin2", "admin3"]
           const popupContent = `
             <div class="p-2">
-              <div class="font-medium">${feature.properties.notes}</div>
-              <div class="text-xs">ConflictPoints</div>
+              <div class="text-xs font-semibold">Event Type</div>
+              <div class="text-xs">${feature.properties.disorder_type} - ${feature.properties.event_type} - ${feature.properties.sub_event_type}</div>
+              <div class="text-xs font-semibold">Notes</div>
+              <div class="text-xs">${feature.properties.notes}</div>
+              <div class="text-xs font-semibold">Location</div>
+              <div class="text-xs">${locationFields.map((field) => feature.properties[field]).join(", ")}</div>
             </div>
           `
           layer.bindPopup(popupContent)
         }
       },
     }).addTo(mapInstance)
-  }, [mapInstance, isVisible])
+  }, [mapInstance, isVisible, selectedDate])
 
-  // Non-visual component (just manages the IDP layer on leaflet map)
   return null
 }

@@ -22,8 +22,8 @@ export function PopulatedPlaces({ isVisible }: PopulatedPlacesProps) {
               radius: 2,
               color: "#db4071",
               weight: 1,
-              opacity: 0.7,
-              fillOpacity: 0.35,
+              opacity: 0.15,
+              fillOpacity: 0.15,
               fillColor: "#db4071",
             })
           },

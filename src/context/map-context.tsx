@@ -163,7 +163,7 @@ export function MapProvider({ children }: { children: ReactNode }) {
             features: layer.data.features.filter((feature: any) => {
               // Keep features without dates or with matching dates
               const date = feature.properties?.date
-              console.log(feature, date, !date || datesMatch(date, selectedDate))
+              // console.log(feature, date, !date || datesMatch(date, selectedDate))
               return !date || datesMatch(date, selectedDate)
             }),
           }

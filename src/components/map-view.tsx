@@ -169,7 +169,7 @@ export function MapView({ events }: MapViewProps) {
 
       {/* Map layers */}
       <ConflictEvents
-        isVisible={layers.filter(layer => layer.id === "conflict-risk").some(layer => layer.visible)}
+        isVisible={layers.filter(layer => layer.id === "adm2-crisis").some(layer => layer.visible)}
         selectedDate={selectedDate}
       />
 
