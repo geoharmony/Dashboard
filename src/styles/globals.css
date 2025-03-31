@@ -1,9 +1,12 @@
 @import "tailwindcss";
 
 @custom-variant dark (&:is(.dark *));
-/* @import "@tailwindcss/base";
-@import "@tailwindcss/components";
-@import "@tailwindcss/utilities"; */
+
+.dark .leaflet-tile-pane,
+.dark .leaflet-control-attribution {
+  -webkit-filter: invert(1) grayscale(1);
+  filter: invert(1) grayscale(1);
+}
 
 body {
   font-family: Arial, Helvetica, sans-serif;

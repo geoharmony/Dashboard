@@ -2,12 +2,18 @@ import L from "leaflet"
 import { useMapContext } from "@/context/map-context"
 import { useEffect, useRef } from "react"
 import Geo from "@/data/unmiss_civil_affairs_geo.json"
+import CivilAffairsIcon from "@/assets/icon_un_civilaffairs_transparent.svg"
 
 
 
 export function UNMISSCivilAffairs({ isVisible }: { isVisible: boolean }) {
   const { mapInstance } = useMapContext()
   const unmissCivilAffairsRef = useRef<L.GeoJSON | null>(null)
+
+  const icon = L.icon({
+    iconUrl: CivilAffairsIcon,
+    iconSize: [25, 25],
+  })
 
   useEffect(() => {
     if (!mapInstance) return
@@ -34,13 +40,8 @@ export function UNMISSCivilAffairs({ isVisible }: { isVisible: boolean }) {
     // Create IDP layer
     unmissCivilAffairsRef.current = L.geoJSON(Geo, {
       pointToLayer: (feature, latlng) => {
-        return L.circleMarker(latlng, {
-          radius: 10,
-          color: "#357981",
-          weight: 2,
-          opacity: 0.7,
-          fillOpacity: 0.35,
-          fillColor: "#357981",
+        return L.marker(latlng, {
+          icon: icon,
         })
       },
       // style: () => ({

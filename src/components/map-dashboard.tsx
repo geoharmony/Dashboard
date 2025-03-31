@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react"
 import { MapProvider } from "../context/map-context"
 import { MapView } from "./map-view"
 import { Header } from "./header"
@@ -11,14 +10,10 @@ interface MapDashboardProps {
 }
 
 export function MapDashboard({ events }: MapDashboardProps) {
-  const [activeTab, setActiveTab] = useState("conflict-risk")
-
-
-
   return (
     <MapProvider>
       <div className="flex h-screen flex-col">
-        <Header activeTab={activeTab} setActiveTab={setActiveTab} />
+        <Header />
         <div className="flex flex-1 overflow-hidden">
           <Sidebar />
           <MapView events={events} />

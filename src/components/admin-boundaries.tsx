@@ -48,17 +48,6 @@ export function AdminBoundaries({ mapInstance, admin1Enabled, admin2Enabled }: A
         fillOpacity: 0.1,
         fillColor: "#3949AB",
       }),
-      onEachFeature: (feature, layer) => {
-        if (feature.properties) {
-          const popupContent = `
-            <div class="p-2">
-              <div class="font-medium">${feature.properties.ADM1_NAME || "Unknown"}</div>
-              <div class="text-xs">Admin Level 1</div>
-            </div>
-          `
-          layer.bindPopup(popupContent)
-        }
-      },
     }).addTo(mapInstance)
   }, [mapInstance, admin1Enabled])
 

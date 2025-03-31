@@ -1,14 +1,17 @@
-"use client"
-
 import { Tabs, TabsList, TabsTrigger } from "./ui/tabs"
 import { Button } from "./ui/button"
+import { useState } from "react"
+import { useMapContext } from "../context/map-context"
 
-interface HeaderProps {
-  activeTab: string
-  setActiveTab: (tab: string) => void
-}
+export function Header() {
+  const [activeTab, setActiveTab] = useState("conflict-risk")
+  const {filterLayersByCategory} = useMapContext()
 
-export function Header({ activeTab, setActiveTab }: HeaderProps) {
+  const handleTabChange = (tab: string) => {
+    setActiveTab(tab)
+    filterLayersByCategory(tab)
+  }
+
   return (
     <div className="flex flex-col border-b bg-background">
       {/* Top row with GeoHarmony text */}
@@ -34,7 +37,7 @@ export function Header({ activeTab, setActiveTab }: HeaderProps) {
         </div>
 
         <div className="ml-auto overflow-hidden">
-          <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+          <Tabs value={activeTab} onValueChange={handleTabChange} className="w-full">
             <div className="overflow-auto">
               <TabsList className="inline-flex w-max px-1">
                 <TabsTrigger value="conflict-risk" className="px-4">
@@ -43,14 +46,11 @@ export function Header({ activeTab, setActiveTab }: HeaderProps) {
                 <TabsTrigger value="flood-impacts" className="px-4">
                   Flood Impacts
                 </TabsTrigger>
-                <TabsTrigger value="drought-stress" className="px-4">
-                  Drought Stress
+                <TabsTrigger value="higher-ground" className="px-4">
+                  Higher Ground
                 </TabsTrigger>
                 <TabsTrigger value="displacement" className="px-4">
                   Displacement Overview
-                </TabsTrigger>
-                <TabsTrigger value="field-operations" className="px-4">
-                  Field Operations
                 </TabsTrigger>
               </TabsList>
             </div>

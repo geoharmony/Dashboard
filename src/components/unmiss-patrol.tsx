@@ -2,12 +2,17 @@ import L from "leaflet"
 import { useMapContext } from "@/context/map-context"
 import { useEffect, useRef } from "react"
 import Geo from "@/data/unmiss_patrol_geo.json"
-
+import PatrolIcon from "@/assets/icon_un_patrol_transparentbox.svg"
 
 
 export function UNMISSPatrol({ isVisible }: { isVisible: boolean }) {
   const { mapInstance } = useMapContext()
   const unmissPatrolRef = useRef<L.GeoJSON | null>(null)
+
+  const icon = L.icon({
+    iconUrl: PatrolIcon,
+    iconSize: [25, 25],
+  })
 
   useEffect(() => {
     if (!mapInstance) return
@@ -34,13 +39,8 @@ export function UNMISSPatrol({ isVisible }: { isVisible: boolean }) {
     // Create IDP layer
     unmissPatrolRef.current = L.geoJSON(Geo, {
       pointToLayer: (feature, latlng) => {
-        return L.circleMarker(latlng, {
-          radius: 10,
-          color: "#357981",
-          weight: 2,
-          opacity: 0.7,
-          fillOpacity: 0.35,
-          fillColor: "#357981",
+        return L.marker(latlng, {
+          icon: icon,
         })
       },
       // style: () => ({

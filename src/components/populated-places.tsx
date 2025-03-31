@@ -20,11 +20,11 @@ export function PopulatedPlaces({ isVisible }: PopulatedPlacesProps) {
           pointToLayer: (feature, latlng) => {
             return L.circleMarker(latlng, {
               radius: 2,
-              color: "#db4071",
+              color: "#333333",
               weight: 1,
               opacity: 0.15,
-              fillOpacity: 0.15,
-              fillColor: "#db4071",
+              fillOpacity: 0.05,
+              fillColor: "#333333",
             })
           },
           // style: () => ({

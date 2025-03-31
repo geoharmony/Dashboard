@@ -11,6 +11,7 @@ export interface Layer {
   group: string
   tabAssociations: string[]
   visible: boolean
+  disabled?: boolean
   data?: any
   tileUrl?: string
   tileUrlsByDate?: Record<string, string>
@@ -42,7 +43,7 @@ interface MapContextType {
   activeAlerts?: string[]
   toggleLayer?: (id: string) => void
   focusOnAlert?: (id: string) => void
-  filterLayersByCategory?: (category: string) => void
+  filterLayersByCategory: (category: string) => void
   searchQuery?: string
   setSearchQuery?: (query: string) => void
   isSearchVisible?: boolean
@@ -711,10 +712,7 @@ export function MapProvider({ children }: { children: ReactNode }) {
     setLayers((prevLayers) =>
       prevLayers.map((layer) => {
         // If the layer is associated with the selected category, make it visible
-        if (layer.tabAssociations.includes(category)) {
-          return { ...layer, visible: true }
-        }
-        return layer
+        return { ...layer, visible: layer.tabAssociations.includes(category) }
       }),
     )
   }, [])
