@@ -3,10 +3,24 @@ import { useMapContext } from "@/context/map-context"
 import { useEffect, useRef } from "react"
 import UNMISS from "@/data/UNMISS South Sudan Locations.json"
 
-export function UNMISSLayer() {
-  const { mapInstance, layers } = useMapContext()
+import UNCompoundOffice from "@/assets/UN-compound-office.svg"
+import { Feature } from "geojson"
+
+
+interface UNMISSLayerProps {
+  enabled: boolean
+}
+
+export function UNMISSLayer({ enabled }: UNMISSLayerProps) {
+  const { mapInstance } = useMapContext()
   const unmissLayerRef = useRef<L.GeoJSON | null>(null)
-  const isVisible = layers.filter(layer => layer.id === "unmiss").length > 0
+
+  const UNCompoundOfficeIcon = L.icon({
+    iconUrl: UNCompoundOffice,
+    iconSize: [32, 48],
+    iconAnchor: [16, 48],
+    popupAnchor: [0, -48],
+  })
 
   useEffect(() => {
     if (!mapInstance) return
@@ -28,15 +42,31 @@ export function UNMISSLayer() {
       mapInstance.removeLayer(unmissLayerRef.current)
     }
 
+    if (!enabled) return
+
     // Create UNMISS layer
     unmissLayerRef.current = L.geoJSON(UNMISS, {
-      style: () => ({
-        color: "#3949AB", // Indigo
-        weight: 2,
-        opacity: 0.7,
-        fillOpacity: 0.1,
-        fillColor: "#3949AB",
-      }),
+      pointToLayer: (_feature: Feature, latlng: L.LatLng) => {
+        return L.marker(latlng, {
+          icon: UNCompoundOfficeIcon,
+        })
+      },
+      // style: () => ({
+      //   color: "#3949AB", // Indigo
+      //   weight: 2,
+      //   opacity: 0.7,
+      //   fillOpacity: 0.1,
+      //   fillColor: "#3949AB",
+      //     radius: 10,
+      //   })
+      // },
+      // style: () => ({
+      //   color: "#3949AB", // Indigo
+      //   weight: 2,
+      //   opacity: 0.7,
+      //   fillOpacity: 0.1,
+      //   fillColor: "#3949AB",
+      // }),
       onEachFeature: (feature, layer) => {
         if (feature.properties) {
           const popupContent = `
@@ -49,7 +79,7 @@ export function UNMISSLayer() {
         }
       },
     }).addTo(mapInstance)
-  }, [mapInstance, isVisible])
+  }, [mapInstance, enabled])
 
   // Non-visual component (just manages the UNMISS layer on leaflet map)
   return null

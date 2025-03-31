@@ -12,6 +12,7 @@ import { AdminBoundaries } from "@/components/admin-boundaries"
 import { UNMISSLayer } from "@/components/unmiss-layer"
 import { IDPLayer } from "./idp-layer"
 import { FloodLayer } from "./flood-layer"
+import { PopulatedPlaces } from "./populated-places"
 
 interface MapViewProps {
   events: Event[]
@@ -174,8 +175,10 @@ export function MapView({ events }: MapViewProps) {
         admin2Enabled={layers.filter(layer => layer.id === "admin2").some(layer => layer.visible)}
       />
 
-      <UNMISSLayer />
-      <IDPLayer />
+      <UNMISSLayer isVisible={layers.filter(layer => layer.id === "unmiss").some(layer => layer.visible)}/>
+      <IDPLayer isVisible={layers.filter(layer => layer.id === "idp").some(layer => layer.visible)}/>
+      {/* <PopulatedPlaces isVisible={layers.filter(layer => layer.id === "populated_places").some(layer => layer.visible)}/> */}
+      <PopulatedPlaces isVisible={layers.filter(layer => layer.id === "populated_places").some(layer => layer.visible)}/>
       <FloodLayer 
         isVisible={layers.filter(layer => layer.id === "flood").some(layer => layer.visible)}
       />
