@@ -3,24 +3,24 @@ import { useMapContext } from "@/context/map-context"
 import { useEffect, useRef } from "react"
 import UNMISS from "@/data/UNMISS South Sudan Locations.json"
 
-import UNCompoundOffice from "@/assets/UN-compound-office.svg"
+import UNCompoundOfficeSvg from "@/assets/icon_un_loc_transparentbox.svg"
 import { Feature } from "geojson"
 
+const UNCompoundOfficeIcon = L.icon({
+  iconUrl: UNCompoundOfficeSvg,
+  iconSize: [32, 48],
+  iconAnchor: [16, 48],
+  popupAnchor: [0, -48],
+  className: "unmiss-icon",
+})
 
 interface UNMISSLayerProps {
-  enabled: boolean
+  isVisible: boolean
 }
 
-export function UNMISSLayer({ enabled }: UNMISSLayerProps) {
+export function UNMISSLayer({ isVisible }: UNMISSLayerProps) {
   const { mapInstance } = useMapContext()
   const unmissLayerRef = useRef<L.GeoJSON | null>(null)
-
-  const UNCompoundOfficeIcon = L.icon({
-    iconUrl: UNCompoundOffice,
-    iconSize: [32, 48],
-    iconAnchor: [16, 48],
-    popupAnchor: [0, -48],
-  })
 
   useEffect(() => {
     if (!mapInstance) return
@@ -42,13 +42,20 @@ export function UNMISSLayer({ enabled }: UNMISSLayerProps) {
       mapInstance.removeLayer(unmissLayerRef.current)
     }
 
-    if (!enabled) return
+    if (!isVisible) return
+
+    console.log("UNMISSLayer", UNMISS)
 
     // Create UNMISS layer
-    unmissLayerRef.current = L.geoJSON(UNMISS, {
-      pointToLayer: (_feature: Feature, latlng: L.LatLng) => {
+    unmissLayerRef.current = L.geoJSON(UNMISS as GeoJSON.FeatureCollection, {
+      pointToLayer: (feature: Feature, latlng: L.LatLng) => {
         return L.marker(latlng, {
           icon: UNCompoundOfficeIcon,
+          // color: "#3949AB", // Indigo
+          // weight: 2,
+          // opacity: 0.7,
+          // fillOpacity: 0.1,
+          // fillColor: "#3949AB",
         })
       },
       // style: () => ({
@@ -68,6 +75,8 @@ export function UNMISSLayer({ enabled }: UNMISSLayerProps) {
       //   fillColor: "#3949AB",
       // }),
       onEachFeature: (feature, layer) => {
+        console.log("feature", feature)
+        console.log("layer", layer)
         if (feature.properties) {
           const popupContent = `
             <div class="p-2">
@@ -79,7 +88,7 @@ export function UNMISSLayer({ enabled }: UNMISSLayerProps) {
         }
       },
     }).addTo(mapInstance)
-  }, [mapInstance, enabled])
+  }, [mapInstance, isVisible])
 
   // Non-visual component (just manages the UNMISS layer on leaflet map)
   return null

@@ -7,7 +7,7 @@ import EVENTS from "@/data/unmiss-events-chronological.json"
 import UNMISS from "@/data/UNMISS South Sudan Locations.json"
 import IDP_DATA from "@/data/cccm_combined.json"
 import FloodPolygon from "@/data/flood060509.json"
-import ADM2_CRISIS from "@/data/enhanced_adm2.json"
+import ADM2_CRISIS from "@/data/crisis-events.json"
 
 import { type Alert } from "@/types/alerts"
 

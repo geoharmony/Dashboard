@@ -11,7 +11,8 @@ import { DateSlider } from "@/components/slider"
 import { AdminBoundaries } from "@/components/admin-boundaries"
 import { UNMISSLayer } from "@/components/unmiss-layer"
 import { IDPLayer } from "./idp-layer"
-import { FloodLayer } from "./flood-layer"
+import { ConflictEvents } from "./conflict-events"
+// import { FloodLayer } from "./flood-layer"
 import { PopulatedPlaces } from "./populated-places"
 
 interface MapViewProps {
@@ -164,6 +165,11 @@ export function MapView({ events }: MapViewProps) {
       />
 
       {/* Map layers */}
+      <ConflictEvents
+        isVisible={layers.filter(layer => layer.id === "conflict-risk").some(layer => layer.visible)}
+        selectedDate={selectedDate}
+      />
+
       <EventMarkers
         events={filteredEvents}
         mapInstance={mapRef.current}
@@ -179,9 +185,9 @@ export function MapView({ events }: MapViewProps) {
       <IDPLayer isVisible={layers.filter(layer => layer.id === "idp").some(layer => layer.visible)}/>
       {/* <PopulatedPlaces isVisible={layers.filter(layer => layer.id === "populated_places").some(layer => layer.visible)}/> */}
       <PopulatedPlaces isVisible={layers.filter(layer => layer.id === "populated_places").some(layer => layer.visible)}/>
-      <FloodLayer 
+      {/* <FloodLayer 
         isVisible={layers.filter(layer => layer.id === "flood").some(layer => layer.visible)}
-      />
+      /> */}
       
 
 

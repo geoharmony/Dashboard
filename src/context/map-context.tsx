@@ -224,211 +224,211 @@ export function MapProvider({ children }: { children: ReactNode }) {
 
   }, [mapInstance])
 
-  // Update map when filtered layers or active category changes
-  useEffect(() => {
-    if (!mapInstance || pendingUpdatesRef.current) return
+  // // Update map when filtered layers or active category changes
+  // useEffect(() => {
+  //   if (!mapInstance || pendingUpdatesRef.current) return
 
-    pendingUpdatesRef.current = true
+  //   pendingUpdatesRef.current = true
 
-    // Use requestAnimationFrame to batch updates and prevent rendering issues
-    requestAnimationFrame(() => {
-      try {
-        // Clean up existing layers
-        cleanupAllLayers()
+  //   // Use requestAnimationFrame to batch updates and prevent rendering issues
+  //   requestAnimationFrame(() => {
+  //     try {
+  //       // Clean up existing layers
+  //       cleanupAllLayers()
 
-        // Add visible layers that match the active category
-        filteredLayers.forEach((layer) => {
-          // Skip if layer is not visible or not associated with active category
-          if (!layer.visible || (activeCategory !== "map" && !layer.tabAssociations.includes(activeCategory))) {
-            return
-          }
+  //       // Add visible layers that match the active category
+  //       filteredLayers.forEach((layer) => {
+  //         // Skip if layer is not visible or not associated with active category
+  //         if (!layer.visible || (activeCategory !== "map" && !layer.tabAssociations.includes(activeCategory))) {
+  //           return
+  //         }
 
-          // Skip if layer has no data to display
-          if (
-            (layer.type === "geojson" && (!layer.data.features || layer.data.features.length === 0)) ||
-            ((layer.type === "csv" || layer.type === "marker") && (!layer.data || layer.data.length === 0))
-          ) {
-            return
-          }
+  //         // Skip if layer has no data to display
+  //         if (
+  //           (layer.type === "geojson" && (!layer.data.features || layer.data.features.length === 0)) ||
+  //           ((layer.type === "csv" || layer.type === "marker") && (!layer.data || layer.data.length === 0))
+  //         ) {
+  //           return
+  //         }
 
-          // Create a new leaflet layer
-          let leafletLayer: L.Layer | undefined
+  //         // Create a new leaflet layer
+  //         let leafletLayer: L.Layer | undefined
 
-          if (layer.type === "raster" && layer.tileUrl) {
-            // Add raster tile layer
-            leafletLayer = L.tileLayer(layer.tileUrl, {
-              attribution: "",
-              opacity: layer.opacity || 1.0,
-              minZoom: layer.minZoom || 0,
-              maxZoom: layer.maxZoom || 19,
-            }).addTo(mapInstance)
-          } else if (layer.type === "geojson" && layer.data && layer.data.features && layer.data.features.length > 0) {
-            leafletLayer = L.geoJSON(layer.data, {
-              style: () => ({
-                color: layer.color,
-                weight: 2,
-                opacity: 0.8,
-                fillOpacity: 0.4,
-              }),
-              pointToLayer: (feature, latlng) => {
-                return L.circleMarker(latlng, {
-                  radius: 8,
-                  fillColor: layer.color,
-                  color: "#000",
-                  weight: 1,
-                  opacity: 1,
-                  fillOpacity: 0.8,
-                })
-              },
-              onEachFeature: (feature, layer) => {
-                // Add popup on hover for GeoJSON features
-                if (feature.properties) {
-                  const popupContent = `
-                    <div class="p-2">
-                      <div class="font-medium">${feature.properties.name || "Unnamed Area"}</div>
-                      ${feature.properties.severity ? `<div>Severity: ${feature.properties.severity}</div>` : ""}
-                      ${feature.properties.description ? `<div>${feature.properties.description}</div>` : ""}
-                      ${
-                        feature.properties.date
-                          ? `<div>Date: ${new Date(feature.properties.date).toLocaleDateString()}</div>`
-                          : ""
-                      }
-                      ${
-                        Object.keys(feature.properties).map(
-                          (key) =>
-                            `<div>${key}: ${feature.properties[key]}</div>`
-                        ).join('')
-                      }
-                    </div>
-                  `
+  //         if (layer.type === "raster" && layer.tileUrl) {
+  //           // Add raster tile layer
+  //           leafletLayer = L.tileLayer(layer.tileUrl, {
+  //             attribution: "",
+  //             opacity: layer.opacity || 1.0,
+  //             minZoom: layer.minZoom || 0,
+  //             maxZoom: layer.maxZoom || 19,
+  //           }).addTo(mapInstance)
+  //         } else if (layer.type === "geojson" && layer.data && layer.data.features && layer.data.features.length > 0) {
+  //           leafletLayer = L.geoJSON(layer.data, {
+  //             style: () => ({
+  //               color: layer.color,
+  //               weight: 2,
+  //               opacity: 0.8,
+  //               fillOpacity: 0.4,
+  //             }),
+  //             pointToLayer: (feature, latlng) => {
+  //               return L.circleMarker(latlng, {
+  //                 radius: 8,
+  //                 fillColor: layer.color,
+  //                 color: "#000",
+  //                 weight: 1,
+  //                 opacity: 1,
+  //                 fillOpacity: 0.8,
+  //               })
+  //             },
+  //             onEachFeature: (feature, layer) => {
+  //               // Add popup on hover for GeoJSON features
+  //               if (feature.properties) {
+  //                 const popupContent = `
+  //                   <div class="p-2">
+  //                     <div class="font-medium">${feature.properties.name || "Unnamed Area"}</div>
+  //                     ${feature.properties.severity ? `<div>Severity: ${feature.properties.severity}</div>` : ""}
+  //                     ${feature.properties.description ? `<div>${feature.properties.description}</div>` : ""}
+  //                     ${
+  //                       feature.properties.date
+  //                         ? `<div>Date: ${new Date(feature.properties.date).toLocaleDateString()}</div>`
+  //                         : ""
+  //                     }
+  //                     ${
+  //                       Object.keys(feature.properties).map(
+  //                         (key) =>
+  //                           `<div>${key}: ${feature.properties[key]}</div>`
+  //                       ).join('')
+  //                     }
+  //                   </div>
+  //                 `
 
-                  // Configure popup with options to prevent map jumping
-                  const popup = L.popup({
-                    closeButton: false,
-                    offset: L.point(0, -8),
-                    autoPan: false,
-                    className: "custom-popup",
-                  }).setContent(popupContent)
+  //                 // Configure popup with options to prevent map jumping
+  //                 const popup = L.popup({
+  //                   closeButton: false,
+  //                   offset: L.point(0, -8),
+  //                   autoPan: false,
+  //                   className: "custom-popup",
+  //                 }).setContent(popupContent)
 
-                  layer.bindPopup(popup)
+  //                 layer.bindPopup(popup)
 
-                  // Show popup on hover, hide on mouseout
-                  layer.on("mouseover", function (e) {
-                    this.openPopup()
-                  })
-                  layer.on("mouseout", function (e) {
-                    this.closePopup()
-                  })
-                }
-              },
-            }).addTo(mapInstance)
-          } else if (layer.type === "csv" && layer.data && layer.data.length > 0) {
-            // Convert CSV data to markers
-            const markerGroup = L.layerGroup().addTo(mapInstance)
+  //                 // Show popup on hover, hide on mouseout
+  //                 layer.on("mouseover", function (e) {
+  //                   this.openPopup()
+  //                 })
+  //                 layer.on("mouseout", function (e) {
+  //                   this.closePopup()
+  //                 })
+  //               }
+  //             },
+  //           }).addTo(mapInstance)
+  //         } else if (layer.type === "csv" && layer.data && layer.data.length > 0) {
+  //           // Convert CSV data to markers
+  //           const markerGroup = L.layerGroup().addTo(mapInstance)
 
-            layer.data.forEach((point: any) => {
-              const marker = L.marker([point.latitude, point.longitude], {
-                icon: L.divIcon({
-                  html: `<div style="background-color: ${layer.color}; width: 12px; height: 12px; border-radius: 6px;"></div>`,
-                  className: "custom-div-icon",
-                  iconSize: [12, 12],
-                  iconAnchor: [6, 6],
-                }),
-              })
+  //           layer.data.forEach((point: any) => {
+  //             const marker = L.marker([point.latitude, point.longitude], {
+  //               icon: L.divIcon({
+  //                 html: `<div style="background-color: ${layer.color}; width: 12px; height: 12px; border-radius: 6px;"></div>`,
+  //                 className: "custom-div-icon",
+  //                 iconSize: [12, 12],
+  //                 iconAnchor: [6, 6],
+  //               }),
+  //             })
 
-              // Add popup on hover for CSV points
-              const popupContent = `
-                <div class="p-2">
-                  <div class="font-medium">${point.name || "Unnamed Point"}</div>
-                  ${point.type ? `<div>Type: ${point.type}</div>` : ""}
-                  ${point.description ? `<div>${point.description}</div>` : ""}
-                  ${point.date ? `<div>Date: ${new Date(point.date).toLocaleDateString()}</div>` : ""}
-                </div>
-              `
+  //             // Add popup on hover for CSV points
+  //             const popupContent = `
+  //               <div class="p-2">
+  //                 <div class="font-medium">${point.name || "Unnamed Point"}</div>
+  //                 ${point.type ? `<div>Type: ${point.type}</div>` : ""}
+  //                 ${point.description ? `<div>${point.description}</div>` : ""}
+  //                 ${point.date ? `<div>Date: ${new Date(point.date).toLocaleDateString()}</div>` : ""}
+  //               </div>
+  //             `
 
-              // Configure popup with options to prevent map jumping
-              const popup = L.popup({
-                closeButton: false,
-                offset: L.point(0, -8),
-                autoPan: false,
-                className: "custom-popup",
-              }).setContent(popupContent)
+  //             // Configure popup with options to prevent map jumping
+  //             const popup = L.popup({
+  //               closeButton: false,
+  //               offset: L.point(0, -8),
+  //               autoPan: false,
+  //               className: "custom-popup",
+  //             }).setContent(popupContent)
 
-              marker.bindPopup(popup)
+  //             marker.bindPopup(popup)
 
-              // Show popup on hover, hide on mouseout
-              marker.on("mouseover", function (e) {
-                this.openPopup()
-              })
-              marker.on("mouseout", function (e) {
-                this.closePopup()
-              })
+  //             // Show popup on hover, hide on mouseout
+  //             marker.on("mouseover", function (e) {
+  //               this.openPopup()
+  //             })
+  //             marker.on("mouseout", function (e) {
+  //               this.closePopup()
+  //             })
 
-              markerGroup.addLayer(marker)
-            })
+  //             markerGroup.addLayer(marker)
+  //           })
 
-            leafletLayer = markerGroup
-          } else if (layer.type === "marker" && layer.data && layer.data.length > 0) {
-            // Add custom markers
-            const markerGroup = L.layerGroup().addTo(mapInstance)
+  //           leafletLayer = markerGroup
+  //         } else if (layer.type === "marker" && layer.data && layer.data.length > 0) {
+  //           // Add custom markers
+  //           const markerGroup = L.layerGroup().addTo(mapInstance)
 
-            layer.data.forEach((point: any) => {
-              const marker = L.marker([point.latitude, point.longitude], {
-                icon: L.divIcon({
-                  html: `<div style="background-color: ${layer.color}; width: 16px; height: 16px;"></div>`,
-                  className: "custom-div-icon",
-                  iconSize: [16, 16],
-                  iconAnchor: [8, 8],
-                }),
-              })
+  //           layer.data.forEach((point: any) => {
+  //             const marker = L.marker([point.latitude, point.longitude], {
+  //               icon: L.divIcon({
+  //                 html: `<div style="background-color: ${layer.color}; width: 16px; height: 16px;"></div>`,
+  //                 className: "custom-div-icon",
+  //                 iconSize: [16, 16],
+  //                 iconAnchor: [8, 8],
+  //               }),
+  //             })
 
-              // Add popup on hover for marker points
-              const popupContent = `
-                <div class="p-2">
-                  <div class="font-medium">${point.name || "Unnamed Location"}</div>
-                  ${point.population ? `<div>Population: ${point.population}</div>` : ""}
-                  ${point.status ? `<div>Status: ${point.status}</div>` : ""}
-                  ${point.date ? `<div>Date: ${new Date(point.date).toLocaleDateString()}</div>` : ""}
-                </div>
-              `
+  //             // Add popup on hover for marker points
+  //             const popupContent = `
+  //               <div class="p-2">
+  //                 <div class="font-medium">${point.name || "Unnamed Location"}</div>
+  //                 ${point.population ? `<div>Population: ${point.population}</div>` : ""}
+  //                 ${point.status ? `<div>Status: ${point.status}</div>` : ""}
+  //                 ${point.date ? `<div>Date: ${new Date(point.date).toLocaleDateString()}</div>` : ""}
+  //               </div>
+  //             `
 
-              // Configure popup with options to prevent map jumping
-              const popup = L.popup({
-                closeButton: false,
-                offset: L.point(0, -8),
-                autoPan: false,
-                className: "custom-popup",
-              }).setContent(popupContent)
+  //             // Configure popup with options to prevent map jumping
+  //             const popup = L.popup({
+  //               closeButton: false,
+  //               offset: L.point(0, -8),
+  //               autoPan: false,
+  //               className: "custom-popup",
+  //             }).setContent(popupContent)
 
-              marker.bindPopup(popup)
+  //             marker.bindPopup(popup)
 
-              // Show popup on hover, hide on mouseout
-              marker.on("mouseover", function (e) {
-                this.openPopup()
-              })
-              marker.on("mouseout", function (e) {
-                this.closePopup()
-              })
+  //             // Show popup on hover, hide on mouseout
+  //             marker.on("mouseover", function (e) {
+  //               this.openPopup()
+  //             })
+  //             marker.on("mouseout", function (e) {
+  //               this.closePopup()
+  //             })
 
-              markerGroup.addLayer(marker)
-            })
+  //             markerGroup.addLayer(marker)
+  //           })
 
-            leafletLayer = markerGroup
-          }
+  //           leafletLayer = markerGroup
+  //         }
 
-          // Store the layer in our active layers map
-          if (leafletLayer) {
-            activeLayersRef.current.set(layer.id, leafletLayer)
-          }
-        })
+  //         // Store the layer in our active layers map
+  //         if (leafletLayer) {
+  //           activeLayersRef.current.set(layer.id, leafletLayer)
+  //         }
+  //       })
 
-        pendingUpdatesRef.current = false
-      } catch (error) {
-        console.error("Error updating map layers:", error)
-        pendingUpdatesRef.current = false
-      }
-    })
-  }, [mapInstance, filteredLayers, activeCategory, cleanupAllLayers])
+  //       pendingUpdatesRef.current = false
+  //     } catch (error) {
+  //       console.error("Error updating map layers:", error)
+  //       pendingUpdatesRef.current = false
+  //     }
+  //   })
+  // }, [mapInstance, filteredLayers, activeCategory, cleanupAllLayers])
 
   // Handle alert visualization
   useEffect(() => {
@@ -445,10 +445,10 @@ export function MapProvider({ children }: { children: ReactNode }) {
       try {
         // Process alerts
         filteredAlerts.forEach((alert) => {
-          const isActive = activeAlerts.includes(alert.id)
-          const hasLayer = activeAlertsRef.current.has(alert.id)
+          const isActive = activeAlerts.includes(alert.narrative_id)
+          const hasLayer = activeAlertsRef.current.has(alert.narrative_id)
 
-          console.log(`Processing alert ${alert.id}:`, {
+          console.log(`Processing alert ${alert.narrative_id}:`, {
             isActive,
             hasLayer,
             alert,
@@ -456,22 +456,22 @@ export function MapProvider({ children }: { children: ReactNode }) {
 
           // Remove inactive alerts
           if (!isActive && hasLayer) {
-            const layer = activeAlertsRef.current.get(alert.id)!
+            const layer = activeAlertsRef.current.get(alert.narrative_id)!
             mapInstance.removeLayer(layer)
-            activeAlertsRef.current.delete(alert.id)
-            console.log(`Removed inactive alert: ${alert.id}`)
+            activeAlertsRef.current.delete(alert.narrative_id)
+            console.log(`Removed inactive alert: ${alert.narrative_id}`)
             return
           }
 
           // Skip if already active
           if (isActive && hasLayer) {
-            console.log(`Alert ${alert.id} already active and has layer`)
+            console.log(`Alert ${alert.narrative_id} already active and has layer`)
             return
           }
 
           // Add new active alerts
           if (isActive && !hasLayer) {
-            console.log(`Creating layer for alert ${alert.id}`)
+            console.log(`Creating layer for alert ${alert.narrative_id}`)
             let leafletLayer: L.Layer | undefined
             let bounds: L.LatLngBounds | undefined
 
