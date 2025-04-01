@@ -3,7 +3,7 @@ import { useMapContext } from "@/context/map-context"
 import { useEffect, useRef } from "react"
 import Events from "@/data/events.json"
 import { isSameDay, parse } from "date-fns"
-import ConflictIcon from "@/assets/icon_conflict_transparentbox.svg"
+import ConflictIcon from "@/assets/icon_conflict.svg"
 
 export function ConflictEventPoints({ isVisible }: { isVisible: boolean }) {
   const { mapInstance, selectedDate } = useMapContext()
@@ -12,6 +12,7 @@ export function ConflictEventPoints({ isVisible }: { isVisible: boolean }) {
     iconUrl: ConflictIcon,
     iconSize: [25, 25],
     iconAnchor: [12, 12],
+    className: "conflict-icon",
   })
 
   useEffect(() => {

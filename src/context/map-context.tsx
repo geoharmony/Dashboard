@@ -53,6 +53,8 @@ interface MapContextType {
   setBaseLayer?: (layer: L.TileLayer) => void
   topoLayer?: L.TileLayer
   setTopoLayer?: (layer: L.TileLayer) => void
+  mapOrAlert: string
+  setMapOrAlert: (mapOrAlert: string) => void
 }
 
 const MapContext = createContext<MapContextType | undefined>(undefined)
@@ -103,7 +105,6 @@ export function MapProvider({ children }: { children: ReactNode }) {
   // Use refs to track active layers and markers
   const activeLayersRef = useRef(new Map<string, L.Layer>())
   const activeAlertsRef = useRef(new Map<string, L.Layer>())
-  const pendingUpdatesRef = useRef(false)
 
   // Topo layer state
   const [showingTopo, setShowingTopo] = useState<boolean>(false)

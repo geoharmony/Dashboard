@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { useMapContext } from "@/context/map-context"
 import { cn } from "@/lib/utils"
+import { parse } from "date-fns"
 
 export function AlertsPanel() {
   const { filteredAlerts, focusOnAlert, activeAlerts } = useMapContext()
@@ -82,7 +83,7 @@ export function AlertsPanel() {
                       {alert.title}
                     </h3>
                     <p className="text-xs text-muted-foreground mt-1">{alert.description}</p>
-                    <p className="text-xs text-muted-foreground mt-1">{new Date(alert.date).toLocaleDateString()}</p>
+                    <p className="text-xs text-muted-foreground mt-1">{parse(alert.date, "yyyy-MM-dd", new Date()).toLocaleDateString()}</p>
                   </div>
                   <Button
                     variant="ghost"

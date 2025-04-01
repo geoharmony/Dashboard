@@ -3,7 +3,7 @@ import { Button } from "./ui/button"
 import { useState } from "react"
 import { useMapContext } from "../context/map-context"
 
-export function Header() {
+export function Header({ handleViewSelection }: { handleViewSelection: (view: string) => void }) {
   const [activeTab, setActiveTab] = useState("conflict-risk")
   const {filterLayersByCategory} = useMapContext()
 
@@ -28,11 +28,14 @@ export function Header() {
       {/* Main header row with buttons and tabs */}
       <div className="flex h-12 items-center px-4">
         <div className="flex items-center gap-2 mr-4">
-          <Button variant="outline" className="h-9">
+          <Button variant="outline" onClick={() => handleViewSelection("map")} className="h-9">
             Map
           </Button>
-          <Button variant="outline" className="h-9">
+          <Button variant="outline" onClick={() => handleViewSelection("reports")} className="h-9">
             Reports
+          </Button>
+          <Button variant="outline" onClick={() => handleViewSelection("alerts")} className="h-9">
+            Alerts
           </Button>
         </div>
 
